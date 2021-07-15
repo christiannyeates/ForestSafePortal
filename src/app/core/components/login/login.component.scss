@@ -1,0 +1,107 @@
+.body-container-login{
+    width:100%;
+    height: 100vh;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    background: url(../../../../assets/Images/img_10.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    font-family: 'Montserrat', sans-serif;
+}
+.body-container-login::before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(89, 168, 43, 0.7);
+}
+.main-login-section-inner {
+    max-width: 450px;
+    margin: auto;
+    padding: 50px 40px;
+    border: 1px solid #59a82b;
+    border-radius: 5px;
+    box-shadow: 0px 0px 60px -23px rgba(0,0,0,0.3);
+    position: relative;
+    background: rgba(255, 255, 255, 0.7);
+}
+.dash {
+    width: 60px;
+    height: 2px;
+    background: #000;
+    margin-top: 0px;
+    position: relative;
+    margin-bottom: 30px;
+}
+.panel-side__content__copy__title {
+    margin-bottom: 20px;
+    color: #222;
+    font-size: 44px;
+    font-weight: 700;
+    position: relative;
+    line-height: 1.0;
+}
+.main-info {
+    margin-bottom: 30px;
+}
+.main-info span {
+    font-size: 20px;
+    color: #222;
+    letter-spacing: 0.5px;
+    line-height: 25px;
+    display: inline-block;
+    font-weight: 500;
+}
+.login-section-fields-single {
+    margin-bottom: 20px;
+}
+.login-section-fields input[type="submit"] {
+        margin-top: 10px;
+    background: #59a82b;
+    height: auto;
+    width: auto !important;
+    border: 1px solid #59a82b;
+    border-radius: 30px;
+    font-size: 14px;
+    display: inline-block;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-section-fields-single label {
+    margin: 0px 0px 0px 0px;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    color: #000;
+    width: 100%;
+    text-shadow: 0.2px 0.2px 0.3px;
+}
+.login-section-fields-single input {
+    height: 40px;
+    padding: 5px 10px 5px 10px;
+    width: 100% !important;
+    border-radius: 3px;
+    color: #222;
+    font-size: 16px;
+    background: #fff !important;
+    border: 1px solid rgba(0,0,0,0.2);
+    margin: 0px;
+    font-weight: 400;
+    margin-top: 2px;
+}
+.errorValdation {
+    color: red !important;
+}
+.btnDisable
+{
+    background: grey;
+    border: none;
+}

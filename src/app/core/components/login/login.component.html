@@ -1,0 +1,39 @@
+<div class="body-container-login">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-12">
+          <div class="main-login-section">
+            <div class="main-login-section-inner">
+              <div class="dash"></div>
+              <h3 class="panel-side__content__copy__title">Log In</h3>
+              <div class="main-info">
+                <span>Green Triangle UK </span>
+              </div>
+              <div>
+                <span style="color:red"></span>
+              </div>
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+                <div class="login-section-fields">
+                  <div class="login-section-fields-single">
+                    <label>Username</label>
+                    <input type="text" name="login-username" formControlName="email" placeholder="email" >
+                    <span class="errorValdation" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required">Please enter email</span>
+                    <!-- <span class="error" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.email">Please enter username</span> -->
+                  </div>
+                  <div class="login-section-fields-single">
+                    <label>Password</label>
+                    <input type="password" name="login_password" formControlName="password" placeholder="Password">
+                    <span class="errorValdation"></span>
+                  </div>
+                  <input type="submit" [ngStyle]="{'background':!loginForm.valid ? 'grey' : '','border':!loginForm.valid ? 'none' : '' }" [disabled]="!loginForm.valid" value="Log In" name="login-form-submit">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
+    <p style="color: white">Please Wait. </p>
+    </ngx-spinner>     -->

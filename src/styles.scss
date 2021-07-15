@@ -1,0 +1,346 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Montserrat', sans-serif;}
+.mat-body, .mat-body-1, .mat-typography,
+.mat-h3, .mat-subheading-2, .mat-typography h3,
+.mat-elevation-z8,
+td.mat-cell {
+   font-family: 'Montserrat', sans-serif;
+}
+.error {
+    background-color: red;
+    color: white;
+    font-weight:500;
+}
+
+.error button {
+    background-color:transparent;
+    color: white;
+}
+
+.success {
+    background-color: green;
+    color: white;
+}
+
+.success button {
+    background-color:transparent;
+    color: white;
+}
+
+.mat-elevation-z8 thead th {
+  background: #fff !important;
+  color: #191919;
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: none;
+  border-bottom-color:#191919;
+}
+.mat-paginator-container{
+    justify-content: space-between !important;
+}
+.mat-elevation-z8 tbody tr:hover{
+ /* transform: translate(0,-2px);
+ transition: all .3s ease-in-out; */
+}
+.mat-elevation-z8 tbody tr:hover td{
+    background: #f1f1f1;
+}
+*:focus{
+    outline: none;
+}
+td.mat-cell {
+  font-size: 14px;
+  /* font-weight: 500; */
+  color: #191919;
+  opacity: 0.8;
+  padding: 8px 8px !important;
+  border-bottom-width: 0 !important;
+}
+table .mat-row:nth-child(even){
+  background-color: #f0f3f4;
+}
+.mat-row:hover{
+  /* background-color: rgba(106,183,76,.22) !important; */
+}
+td.mat-cell{
+  background-color: transparent !important;
+}
+.mat-row:hover td.mat-cell{
+  /* color:#fff !important; */
+  /* background-color: #59A72B; */
+}
+.mat-row:hover td.mat-cell *{
+  /* color:#fff !important */
+}
+footer {
+  padding: 60px 0;
+}
+footer h3{
+  font-size: 24px !important;
+  color:#59A72B;
+  margin-bottom: 60px !important;
+  font-weight: 700 !important;
+}
+footer p{
+  font-size: 14px;
+  margin-bottom: 0px !important;
+}
+
+footer h4{
+  color:#59A72B;
+  font-size: 14px;
+  font-weight: 700 !important;
+}
+footer ul{
+  list-style: none;
+  padding:0px;
+  margin:0px;
+  margin-bottom:150px;
+}
+footer ul li a{
+  font-size: 14px;
+  font-weight: 600;
+  color:#000;
+  text-decoration: none;
+  margin:10px 0;
+  display:inline-block
+
+}
+footer p a{
+  font-size: 14px;
+  font-weight: 600;
+  color:#000;
+  text-decoration: none;
+  display:inline-block
+}
+
+footer .left-content{
+  max-width:400px;
+}
+.new-mat-form {
+  margin-top: 30px;
+  margin-bottom:20px;
+}
+.new-mat-form .mat-form-field{
+  width:100%;
+}
+
+.new-mat-form .mat-form-field-flex {
+  display: inline-flex;
+  align-items: baseline;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 8px !important;
+  overflow: hidden;
+  padding: 7px 20px 15px;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  font-family: 'Montserrat', sans-serif;
+}
+.new-mat-form .mat-form-field-underline{display: none;}
+.signature-pad canvas {
+  background: #f1f1f1 !important;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.signature-pad .buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 30px;
+}
+.signature-pad .buttons .btn{
+  font-family: 'Montserrat', sans-serif
+}
+.new-mat-form button.mat-raised-button {
+  display: block;
+  width: 100%;
+  font-size: 18px;
+  height: auto;
+  padding: 10px 10px 5px;
+  background: #57a32b !important;
+}
+.new-mat-form .mat-form-field-subscript-wrapper{
+  margin-top: 2px !important;
+  margin-left: 10px;
+  font-size: 11px;
+}
+
+.popover{
+  padding:30px;
+  font-family: 'Montserrat', sans-serif
+}
+.popover-title{
+font-size: 20px;
+font-weight: 600;
+color:#BD081C;
+line-height: 24px;
+display: flex;
+align-items:center;
+border:0px;
+}
+
+.popover-body{
+  font-size:14px;
+  font-weight: 400;
+  padding: 0px;
+}
+
+
+.box-container app-dragable-resizeable{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  z-index: 11;
+  height: 100%;
+  background: rgba(0,0,0,.6)
+}
+.form-field{
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 15px;
+  margin: 10px 0;
+}
+.form-field legend {
+  display: inline-block;
+  width: auto;
+  padding: 6px 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.custom-field .form-field .mat-form-field{
+  width: 100%;
+  margin-bottom: 25px;
+}
+.custom-field .form-field .mat-form-field-wrapper {
+  padding: 0px;
+}
+.custom-field .form-field .mat-form-field-wrapper .mat-form-field-infix {
+  padding: 0px;
+  width: 100%;
+  border: 0;
+}
+.custom-field .form-field .mat-form-field-wrapper input.mat-input-element {
+  margin: 0px;
+  padding: 4px 15px;
+  height: 42px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.custom-field .form-field .mat-form-field-wrapper .mat-form-field-label{
+  padding-left: 10px;
+  margin: 0px;
+  padding-top: 7px;
+}
+.custom-field .form-field button{
+  height: 44px;
+  line-height: 44px;
+  padding: 0px 20px;
+  background: #5ca730;
+  color: #fff;
+  text-transform: uppercase;
+}
+.custom-field .form-field .mat-focused .mat-form-field-label,
+.custom-field .form-field .mat-focused  .mat-form-field.mat-form-field-invalid .mat-form-field-label,
+.custom-field .form-field .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+.custom-field .form-field .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label{
+  padding-top: 0;
+}
+.custom-field .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+  margin-top: 0px;
+  top: calc(100% + 0px);
+}
+.custom-field .form-field .mat-form-field-wrapper .mat-form-field-underline{display:none}
+.custom-field .form-field .mat-form-field-wrapper .mat-form-field-flex{align-items: center;}
+.custom-field .form-field .mat-form-field-wrapper .mat-form-field-flex input.mat-input-element{
+
+}
+.custom-field .form-field .mat-form-field-wrapper .mat-form-field-flex .mat-icon-button {
+  padding: 0px 9px;
+  background: #5ca730;
+  height: 40px !important;
+  border-radius: 4px;
+  font-size: 20px !important;
+  color: #fff;
+  width:auto;
+  margin-left: 5px;
+}
+
+.mat-raised-button.mat-danger,
+.signature-pad .btn-default  {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.mat-raised-button.mat-success,
+.signature-pad .btn-primary {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.mat-raised-button.btn-warning {
+  color: #212529;
+  background-color: #ffc107;
+  border-color: #ffc107;
+}
+.signature-pad .buttons {
+  /* background: #ececec; */
+  padding: 6px 0px;
+  margin-top: -5px;
+}
+.mat-elevation-z8{
+  box-shadow: none;
+}
+.mat-checkbox-frame {
+  border-color: #a5aeb7;
+}
+.example-full-width{
+  width: 100%;
+}
+.example-full-width .mat-form-field-underline{
+  display: none;
+}
+.example-full-width .mat-input-element,
+.example-full-width .mat-select-trigger{
+  background: #f0f3f4;
+  padding: 0 15px;
+    /* background: red; */
+    width: 100%;
+    height: 44px;
+    border-radius: 6px;
+    line-height: 44px;
+    font-size: 16px;
+    color: #191919;
+}
+.example-full-width.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: rgba(0,0,0,1);
+  top: 0;
+  font-weight: 500;
+  transform: none !important;
+}
+.example-full-width .mat-form-field-suffix{
+  position: absolute;
+  top: 17px;
+  height: 44px;
+  line-height: 44px;
+  right: 0;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: none;
+  box-shadow: none;
+  border: 0;
+}
+@media (min-width:1300px){
+  .container{
+    max-width: 1260px;
+  }
+}
