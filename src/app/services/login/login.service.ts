@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/internal/operators/map';
-import { AuthenticateModel } from 'src/app/core/models/authenticate-model';
-import { AuthCookie } from 'src/app/core/utils/auth.cookie';
+import { AuthenticateModel } from 'src/app/core/models/authenticate-model'; 
 import { RepositoryService } from '../repository/repository.service';
 
 
@@ -13,38 +12,39 @@ import { RepositoryService } from '../repository/repository.service';
     providedIn: 'root'
 })
 export class LoginService {
-
-    private userSubject: BehaviorSubject<any>;
-    public user: Observable<any>;
+ 
+    public user:  any;
 
     constructor(
         private router: Router,
-        private repositoryService: RepositoryService, private authCookie: AuthCookie
+        private repositoryService: RepositoryService  
     ) {
-        this.userSubject = new BehaviorSubject<any>(JSON.parse(this.authCookie.getAuth()));
-        this.user = this.userSubject.asObservable();
+         
     }
 
-    public get userValue(): any {
-        return this.userSubject;
-    }
-
+    
     login(authenticateModel: AuthenticateModel) {
-        // return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
-        return this.repositoryService.post('auth/login', authenticateModel)
+        return this.repositoryService.post('auth/login', authenticateModel,false)
             .pipe(map((user: any) => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
-                this.authCookie.setAuth(JSON.stringify(user));
-                this.userSubject.next(user);
+                localStorage.setItem('access_token', user.token)  
                 return user;
-            }));
-    }
-
-    logout() {
-        // remove user from local storage and set current user to null
-        this.authCookie.deleteAuth();
-        this.userSubject.next(null);
-        this.router.navigate(['/login']);
-    }
-
+            })); 
+      }
+      getToken() {
+        return localStorage.getItem('access_token');
+      }
+    
+      get isLoggedIn(): boolean {
+        let authToken = localStorage.getItem('access_token');
+        return (authToken !== null) ? true : false;
+      }
+    
+      doLogout() {
+        let removeToken = localStorage.removeItem('access_token');
+        if (removeToken == null) {
+          this.router.navigate(['login']);
+        }
+      }
+ 
 }

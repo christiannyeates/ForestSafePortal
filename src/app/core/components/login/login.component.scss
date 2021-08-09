@@ -4,10 +4,36 @@
     overflow: auto;
     display: flex;
     align-items: center;
-    background: url(../../../../assets/Images/img_10.jpg);
+    background: url(../../../../assets/Images/background_1.jpg);
     background-attachment: fixed;
     background-position: center;
     font-family: 'Montserrat', sans-serif;
+    
+}
+.login-logo-top{ 
+    width: 27px;
+    height: 28.42px;
+    margin:0px 15px 0px 17px; 
+}
+.login-top-title{  
+    height: 19px;
+    left: 70px;
+    top: 14px; 
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    display: inline-block;
+    color: #000000;
+}
+.login-top-nav{ 
+    overflow: hidden;
+    background-color: #FF9401;  
+    position: fixed;  
+    top: 0;  
+    left: 0;
+    padding: 15px;
+    width: 100%;  
 }
 .body-container-login::before {
     content: "";
@@ -16,33 +42,32 @@
     left: 0px;
     width: 100%;
     height: 100%;
-    background: rgba(89, 168, 43, 0.7);
+    background: transparent;
 }
 .main-login-section-inner {
     max-width: 450px;
+    min-height: 440px;
     margin: auto;
     padding: 50px 40px;
-    border: 1px solid #59a82b;
+    border: 1px solid #D5D2CD;
     border-radius: 5px;
     box-shadow: 0px 0px 60px -23px rgba(0,0,0,0.3);
     position: relative;
-    background: rgba(255, 255, 255, 0.7);
+    background: #FFFFFF;
 }
-.dash {
-    width: 60px;
-    height: 2px;
-    background: #000;
-    margin-top: 0px;
-    position: relative;
-    margin-bottom: 30px;
-}
+.logo-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+  }
 .panel-side__content__copy__title {
     margin-bottom: 20px;
     color: #222;
-    font-size: 44px;
+    font-size: 30px;
     font-weight: 700;
     position: relative;
-    line-height: 1.0;
+    line-height: 1.0;  
+    text-align: center;
 }
 .main-info {
     margin-bottom: 30px;
@@ -59,18 +84,19 @@
     margin-bottom: 20px;
 }
 .login-section-fields input[type="submit"] {
-        margin-top: 10px;
-    background: #59a82b;
+    margin-top: 10px;
+    background: #FF9401;
     height: auto;
     width: auto !important;
-    border: 1px solid #59a82b;
-    border-radius: 30px;
-    font-size: 14px;
-    display: inline-block;
+    border: 1px solid #FF9401;
+    border-radius: 12px;
+    font-size: 14px; 
+    float: right;
     padding: 10px 30px;
     text-transform: uppercase;
     color: #fff;
     font-weight: bold;
+    align-content: flex-end;
     cursor: pointer;
 }
 
@@ -80,7 +106,7 @@
     font-size: 14px;
     letter-spacing: 0.5px;
     font-weight: 500;
-    color: #000;
+    color: #B0B3BA;
     width: 100%;
     text-shadow: 0.2px 0.2px 0.3px;
 }

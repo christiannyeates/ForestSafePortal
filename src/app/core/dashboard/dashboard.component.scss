@@ -1,0 +1,43 @@
+.listLeft {
+    right: 0;
+    left: auto;
+}
+.full-body{
+    background-color: #FCFAF6;
+    width: 100%;
+    min-height: 768px;
+}
+.login-logo-top{ 
+    width: 27px;
+    height: 28.42px;
+    margin:0px 15px 0px 17px; 
+}
+.login-top-title{  
+    height: 19px;
+    left: 70px;
+    top: 14px; 
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    display: inline-block;
+    color: #000000;
+}
+.login-top-nav{  
+    background-color: #FF9401;    
+}
+.navbar-toggler-bc{
+    background-color: #000000 !important;    
+}
+.card-item{
+background: #FFFFFF;
+box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+border-radius: 12px;
+margin-top: 20px;
+}
+
+.card-item-checkIns{  
+    background: #FFFFFF;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.15);
+    border-radius: 12px; 
+}

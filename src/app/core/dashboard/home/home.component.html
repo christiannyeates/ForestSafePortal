@@ -1,0 +1,83 @@
+<div class="container"> 
+    <br/>
+    <br/>
+    <br/> 
+    <div class="row">
+        <div class="col-sm-4 ">
+            <h5 class="greeting-title">
+                {{ Greetings }}
+            </h5>
+        </div> 
+    </div>
+    <br/>
+    <br/>
+  <div class="row">
+      <div class="col-sm-4">
+        <br/>
+        <div [routerLink]="['/dashboard/time-sheets']" class="card card-item">
+          <div class="card-body"> 
+            <img title="Time sheets" src="../../../assets/Images/clock.png"/>  
+            <br/><br/>
+            <h5 class="card-title">Time sheets</h5> 
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <br/>
+        <div class="card card-item">
+          <div [routerLink]="['/dashboard/job-sheets']" class="card-body">
+            <img title="Job sheets" src="../../../assets/Images/clipboard.png"/> 
+            <br/><br/>
+            <h5 class="card-title">Job sheets</h5> 
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <br/>
+          <div class="row">
+              <div class="col-sm-12">
+                 
+                  <div [routerLink]="['/dashboard/assets']" class="card card-item-small">
+                      <div class="card-body c-padding"> 
+                        <h5 class="small-card-title-alingment">Assets</h5> 
+                        <h5 class="card-title small-card-count-alingment">{{ Assets }}</h5> 
+                      </div>
+                    </div>
+              </div>
+          </div> 
+          <br/>
+          <div class="row">
+              <div class="col-sm-12">
+                  <div  [routerLink]="['/dashboard/operatives']" class="card card-item-small">
+                      <div class="card-body c-padding"> 
+                        <h5 class="small-card-title-alingment">Operatives</h5> 
+                        <h5 class="card-title small-card-count-alingment">{{ Operatives }}</h5>
+                      </div>
+                    </div>
+              </div>
+          </div>
+          <br/>
+          <div class="row">
+              <div class="col-sm-12">
+                  <div [routerLink]="['/dashboard/Jobs']" class="card card-item-small">
+                      <div class="card-body c-padding">
+                        <h5 class="small-card-title-alingment">Jobs</h5> 
+                        <h5 class="card-title small-card-count-alingment">{{Jobs}}</h5>
+                      </div>
+                    </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <br/> 
+  <div class="row">
+    <div class="col-sm-8">
+      <div [routerLink]="['/dashboard/CheckIns']" class="card card-item-checkIns">  
+        <div class="card-body c-padding" > 
+          <h5 class="title-checkIns">Check Ins</h5>  
+          <img title="Time sheets"style="text-align:right;float:right;"  src="../../../assets/Images/mappin.png"/> 
+        </div>    
+      </div>
+    </div> 
+  </div>
+</div>

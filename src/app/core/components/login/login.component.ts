@@ -25,9 +25,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger
     if (this.loginForm.valid) {
       // tslint:disable-next-line: max-line-length
-      this.loginService.login(this._v()).subscribe(() => { this.router.navigateByUrl('/'); });
+      this.loginService.login(this._v()).subscribe(() => { debugger; this.router.navigateByUrl('/dashboard'); });
 
     }
   }

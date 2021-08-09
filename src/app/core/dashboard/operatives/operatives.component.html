@@ -1,0 +1,130 @@
+<div class="container"> 
+    <br/>
+    <br/>
+    <br/> 
+    <div class="row">
+        <div class="col-sm-4 text-left">
+            <h5 class="page-title">
+               Operatives <span class="numberCircle"> {{ OperativesCount }}</span>
+            </h5> 
+        </div>
+        <div class="col-sm-8  text-right">
+          <button class="button-new" (click)="newTriggerModal(NewModal)" title="+ Add">+ Add</button>
+          <ng-template #NewModal let-modal class="modal-asset">
+            <div class="modal-body modal-asset">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h4 class="model-title-job text-left" id="modal-basic-title">New Operative</h4>
+                  <button type="button" class="close text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div> 
+              </div> 
+              <br/>
+              <form [formGroup]="NewOperativeForm" (ngSubmit)="onSubmitNewOperative()" novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                      <label class="form-field-title">ID</label>
+                      <input type="text" class="form-control form-field" name="newOperative-Id" formControlName="Id" placeholder="ID" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.jobid.touched && NewOperativeForm.controls.jobid.errors?.required">Please enter name</span> 
+                    </div> 
+                </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="form-field-title">First Name</label>
+                      <input type="text" class="form-control form-field" name="newOperative-lastname" formControlName="firstname" placeholder="name" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.name.touched && NewOperativeForm.controls.firstname.errors?.required">Please enter name</span> 
+                    </div> 
+                  </div> 
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="form-field-title">Last Name</label>
+                      <input type="text" class="form-control form-field" name="newOperative-lastname" formControlName="lastname" placeholder="name" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.lastname.touched && NewOperativeForm.controls.lastname.errors?.required">Please enter name</span> 
+                    </div> 
+                  </div>  
+                  <div class="row">
+                    <div class="col-sm-12 asset-section-fields">
+                      <input type="submit" class="text-right " [ngStyle]="{'background':!NewOperativeForm.valid ? 'grey' : '','border':!NewOperativeForm.valid ? 'none' : '' }" [disabled]="!NewOperativeForm.valid" value="Save" name="NewOperativeForm-submit">
+                      <button type="button" class="text-right " (click)="modal.close('Save click')">Cancel</button>
+                      
+                    </div> 
+                  </div>  
+              </form>
+            </div>
+            
+          </ng-template>
+        </div> 
+        
+    </div> 
+  <div class="row"> 
+      <div *ngFor="let operative of Operatives" class="col-sm-3">
+        <br/>
+        <div class="card main-card">
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-left">
+                            <Span class="job-id">ID : </Span><Span class="asset-value">{{operative.jobId}}</Span>
+                        </div> 
+                        <img (click)="editTriggerModal(operative,EditModal)"  class=" text-right over" alt="qrcode"   src="../../../../assets/Images/ico-pen.png">
+                        <img (click)="editTriggerModal(operative,EditModal)"  class="rounded-circle text-right under" alt="white" width="20" src="../../../../assets/Images/Ellipse.png" data-holder-rendered="true">
+                    </div>
+                </div>
+                <br/>
+              <div class="row">  
+                <div class="col-sm-6"><p class="form-field-title">First Name</p><p class="operative-title">{{operative.name}}</p></div>
+                <div class="col-sm-6"><p class="form-field-title">Last Name</p><p class="operative-title">{{operative.description}}</p></div>
+               </div> 
+            </div>
+        </div> 
+      </div>  
+      <ng-template #EditModal let-modal class="modal-asset">
+        <div class="modal-body modal-asset">
+          <div class="row">
+            <div class="col-sm-12">
+              <h4 class="model-title-job text-left" id="modal-basic-title">Edit Operative</h4>
+              <button type="button" class="close text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div> 
+          </div> 
+          <br/>
+          <form [formGroup]="editOperativeForm" (ngSubmit)="onSubmitEditOperative()" novalidate> 
+            <div class="row">
+                <div class="col-sm-6">
+                  <label class="form-field-title">ID</label>
+                  <input type="text" class="form-control form-field" name="editOperative-jobId" formControlName="jobId" placeholder="ID" >
+                  <span class="errorValdation" *ngIf="editOperativeForm.controls.jobId.touched && editOperativeForm.controls.jobId.errors?.required">Please enter name</span> 
+                </div> 
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label class="form-field-title">First Name</label>
+                <input type="text" class="form-control form-field" name="editOperative-firstname" formControlName="firstname" placeholder="First Name" >
+                <span class="errorValdation" *ngIf="editOperativeForm.controls.firstname.touched && editOperativeForm.controls.firstname.errors?.required">Please enter name</span> 
+              </div> 
+            </div>
+            <div class="row"> 
+              <div class="col-sm-12">
+                <label class="form-field-title">Last Name</label> 
+                <input type="text" class="form-control text-area form-field" name="editOperative-lastname" formControlName="lastname" placeholder="Last Name">
+                <span class="errorValdation" *ngIf="editOperativeForm.controls.lastname.touched && editOperativeForm.controls.lastname.errors?.required">Please enter last name</span> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 asset-section-fields">
+                <input type="submit" class="text-right " [ngStyle]="{'background':!editOperativeForm.valid ? 'grey' : '','border':!editOperativeForm.valid ? 'none' : '' }" [disabled]="!editOperativeForm.valid" value="Save" name="editOperativeForm-submit">
+                <button type="button" class="text-right " (click)="modal.close('Save click')">Cancel</button>
+                
+              </div> 
+            </div>  
+        </form>
+        </div> 
+      </ng-template>
+      
+    </div>
+</div> 
+    
+

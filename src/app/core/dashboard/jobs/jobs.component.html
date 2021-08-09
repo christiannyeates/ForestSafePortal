@@ -1,0 +1,132 @@
+<div class="container"> 
+    <br/>
+    <br/>
+    <br/> 
+    <div class="row">
+        <div class="col-sm-4 text-left">
+            <h5 class="page-title">
+               Jobs <span class="numberCircle"> {{ jobsCount }}</span>
+            </h5> 
+        </div>
+        <div class="col-sm-8  text-right">
+          <button class="button-new" (click)="newTriggerModal(NewModal)" title="+ Add">+ Add</button>
+          <ng-template #NewModal let-modal class="modal-asset">
+            <div class="modal-body modal-asset">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h4 class="model-title-job text-left" id="modal-basic-title">New Job</h4>
+                  <button type="button" class="close text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                </div> 
+              </div> 
+              <br/>
+              <form [formGroup]="NewJobForm" (ngSubmit)="onSubmitNewJob()" novalidate>
+                <div class="row">
+                    <div class="col-sm-6">
+                      <label class="form-field-title">ID</label>
+                      <input type="text" class="form-control form-field" name="newJob-jobid" formControlName="jobid" placeholder="name" >
+                      <span class="errorValdation" *ngIf="NewJobForm.controls.jobid.touched && NewJobForm.controls.jobid.errors?.required">Please enter name</span> 
+                    </div> 
+                </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="form-field-title">Job Name</label>
+                      <input type="text" class="form-control form-field" name="newJob-name" formControlName="name" placeholder="name" >
+                      <span class="errorValdation" *ngIf="NewJobForm.controls.name.touched && NewJobForm.controls.name.errors?.required">Please enter name</span> 
+                    </div> 
+                  </div> 
+                  <div class="row"> 
+                    <div class="col-sm-12">
+                      <label class="form-field-title">Job Description</label> 
+                      <textarea class="form-control text-area form-field" name="newJob-description" formControlName="description" placeholder="description"></textarea>
+                      <span class="errorValdation" *ngIf="NewJobForm.controls.description.touched && NewJobForm.controls.description.errors?.required">Please enter description</span> 
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 asset-section-fields">
+                      <input type="submit" class="text-right " [ngStyle]="{'background':!NewJobForm.valid ? 'grey' : '','border':!NewJobForm.valid ? 'none' : '' }" [disabled]="!NewJobForm.valid" value="Save" name="NewJobForm-submit">
+                      <button type="button" class="text-right " (click)="modal.close('Save click')">Cancel</button>
+                      
+                    </div> 
+                  </div>  
+              </form>
+            </div>
+            
+          </ng-template>
+        </div> 
+        
+    </div> 
+  <div class="row"> 
+      <div *ngFor="let job of Jobs" class="col-sm-4">
+        <br/>
+        <div class="card main-card">
+            
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-left">
+                            <Span class="job-id">ID : </Span><Span class="asset-value">{{job.jobId}}</Span>
+                        </div> 
+                        <img (click)="editTriggerModal(job,EditModal)"  class=" text-right over" alt="qrcode"   src="../../../../assets/Images/ico-pen.png">
+                        <img (click)="editTriggerModal(job,EditModal)"  class="rounded-circle text-right under" alt="white" width="20" src="../../../../assets/Images/Ellipse.png" data-holder-rendered="true">
+                    </div>
+                </div>
+                <br/>
+              <div class="row"> 
+                <div class="col-sm-12"> <p class="asset-title">{{job.name}}</p></div>
+               </div> 
+               <div class="row"> 
+                <div class="col-sm-12"> <p class="job-descriptin">{{job.description}}</p></div>
+               </div>  
+            </div>
+        </div> 
+      </div>  
+      <ng-template #EditModal let-modal class="modal-asset">
+        <div class="modal-body modal-asset">
+          <div class="row">
+            <div class="col-sm-12">
+              <h4 class="model-title-job text-left" id="modal-basic-title">Edit Job</h4>
+              <button type="button" class="close text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div> 
+          </div> 
+          <br/>
+          <form [formGroup]="editJobForm" (ngSubmit)="onSubmitEditJob()" novalidate> 
+            <div class="row">
+                <div class="col-sm-6">
+                  <label class="form-field-title">ID</label>
+                  <input type="text" class="form-control form-field" name="editJob-jobId" formControlName="jobId" placeholder="ID" >
+                  <span class="errorValdation" *ngIf="editJobForm.controls.jobId.touched && editJobForm.controls.jobId.errors?.required">Please enter name</span> 
+                </div> 
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <label class="form-field-title">Job Name</label>
+                <input type="text" class="form-control form-field" name="editJob-name" formControlName="name" placeholder="name" >
+                <span class="errorValdation" *ngIf="editJobForm.controls.name.touched && editJobForm.controls.name.errors?.required">Please enter name</span> 
+              </div> 
+            </div>
+            <div class="row"> 
+              <div class="col-sm-12">
+                <label class="form-field-title">Job Description</label> 
+                <textarea class="form-control text-area form-field" name="editJob-description" formControlName="description" placeholder="description"></textarea>
+                <span class="errorValdation" *ngIf="editJobForm.controls.description.touched && editJobForm.controls.description.errors?.required">Please enter description</span> 
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 asset-section-fields">
+                <input type="submit" class="text-right " [ngStyle]="{'background':!editJobForm.valid ? 'grey' : '','border':!editJobForm.valid ? 'none' : '' }" [disabled]="!editJobForm.valid" value="Save" name="editJobForm-submit">
+                <button type="button" class="text-right " (click)="modal.close('Save click')">Cancel</button>
+                
+              </div> 
+            </div>  
+        </form>
+        </div> 
+      </ng-template>
+      
+    </div>
+</div> 
+    
+

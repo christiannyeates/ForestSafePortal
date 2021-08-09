@@ -61,7 +61,10 @@ td.mat-cell {
   border-bottom-width: 0 !important;
 }
 table .mat-row:nth-child(even){
-  background-color: #f0f3f4;
+  background-color: #fff;
+}
+table .mat-row:nth-child(odd){
+  background-color: #FAF1E3;
 }
 .mat-row:hover{
   /* background-color: rgba(106,183,76,.22) !important; */
@@ -344,3 +347,6 @@ border:0px;
     max-width: 1260px;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
