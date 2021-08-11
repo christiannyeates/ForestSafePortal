@@ -1,7 +1,5 @@
 <div class="container"> 
-    <br/>
-    <br/>
-    <br/> 
+    <br/><br/> 
     <div class="row">
         <div class="col-sm-4 text-left">
             <h5 class="page-title">
@@ -25,22 +23,22 @@
                 <div class="row">
                     <div class="col-sm-6">
                       <label class="form-field-title">ID</label>
-                      <input type="text" class="form-control form-field" name="newOperative-Id" formControlName="Id" placeholder="ID" >
-                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.jobid.touched && NewOperativeForm.controls.jobid.errors?.required">Please enter name</span> 
+                      <input type="text" class="form-control form-field" name="OperativeId" formControlName="NewOperativeForm" placeholder="ID" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.OperativeId.touched && NewOperativeForm.controls.OperativeId.errors?.required">Please enter Operative Id</span> 
                     </div> 
                 </div>
                   <div class="row">
                     <div class="col-sm-12">
                       <label class="form-field-title">First Name</label>
-                      <input type="text" class="form-control form-field" name="newOperative-lastname" formControlName="firstname" placeholder="name" >
-                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.name.touched && NewOperativeForm.controls.firstname.errors?.required">Please enter name</span> 
+                      <input type="text" class="form-control form-field" name="lastName" formControlName="NewOperativeForm" placeholder="First Name" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.firstName.touched && NewOperativeForm.controls.firstName.errors?.required">Please enter First Name</span> 
                     </div> 
                   </div> 
                   <div class="row">
                     <div class="col-sm-12">
                       <label class="form-field-title">Last Name</label>
-                      <input type="text" class="form-control form-field" name="newOperative-lastname" formControlName="lastname" placeholder="name" >
-                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.lastname.touched && NewOperativeForm.controls.lastname.errors?.required">Please enter name</span> 
+                      <input type="text" class="form-control form-field" name="lastName" formControlName="NewOperativeForm" placeholder="Last Name" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.lastName.touched && NewOperativeForm.controls.lastName.errors?.required">Please enter Last Name</span> 
                     </div> 
                   </div>  
                   <div class="row">
@@ -66,7 +64,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text-left">
-                            <Span class="job-id">ID : </Span><Span class="asset-value">{{operative.jobId}}</Span>
+                            <Span class="job-id">ID : </Span><Span class="asset-value">{{operative.operativeId}}</Span>
                         </div> 
                         <img (click)="editTriggerModal(operative,EditModal)"  class=" text-right over" alt="qrcode"   src="../../../../assets/Images/ico-pen.png">
                         <img (click)="editTriggerModal(operative,EditModal)"  class="rounded-circle text-right under" alt="white" width="20" src="../../../../assets/Images/Ellipse.png" data-holder-rendered="true">
@@ -74,8 +72,8 @@
                 </div>
                 <br/>
               <div class="row">  
-                <div class="col-sm-6"><p class="form-field-title">First Name</p><p class="operative-title">{{operative.name}}</p></div>
-                <div class="col-sm-6"><p class="form-field-title">Last Name</p><p class="operative-title">{{operative.description}}</p></div>
+                <div class="col-sm-6"><p class="form-field-title">First Name</p><p class="operative-title">{{operative.firstName}}</p></div>
+                <div class="col-sm-6"><p class="form-field-title">Last Name</p><p class="operative-title">{{operative.lastName}}</p></div>
                </div> 
             </div>
         </div> 
@@ -95,22 +93,22 @@
             <div class="row">
                 <div class="col-sm-6">
                   <label class="form-field-title">ID</label>
-                  <input type="text" class="form-control form-field" name="editOperative-jobId" formControlName="jobId" placeholder="ID" >
-                  <span class="errorValdation" *ngIf="editOperativeForm.controls.jobId.touched && editOperativeForm.controls.jobId.errors?.required">Please enter name</span> 
+                  <input type="text" class="form-control form-field" name="editOperativeForm-operativeId" formControlName="operativeId" placeholder="ID" >
+                  <span class="errorValdation" *ngIf="editOperativeForm.controls.operativeId.touched && editOperativeForm.controls.operativeId.errors?.required">Please enter operativeId</span> 
                 </div> 
             </div>
             <div class="row">
               <div class="col-sm-12">
                 <label class="form-field-title">First Name</label>
-                <input type="text" class="form-control form-field" name="editOperative-firstname" formControlName="firstname" placeholder="First Name" >
-                <span class="errorValdation" *ngIf="editOperativeForm.controls.firstname.touched && editOperativeForm.controls.firstname.errors?.required">Please enter name</span> 
+                <input type="text" class="form-control form-field" name="editOperativeForm-firstName" formControlName="firstName" placeholder="First Name" >
+                <span class="errorValdation" *ngIf="editOperativeForm.controls.firstName.touched && editOperativeForm.controls.firstName.errors?.required">Please enter firstName</span> 
               </div> 
             </div>
             <div class="row"> 
               <div class="col-sm-12">
                 <label class="form-field-title">Last Name</label> 
-                <input type="text" class="form-control text-area form-field" name="editOperative-lastname" formControlName="lastname" placeholder="Last Name">
-                <span class="errorValdation" *ngIf="editOperativeForm.controls.lastname.touched && editOperativeForm.controls.lastname.errors?.required">Please enter last name</span> 
+                <input type="text" class="form-control   form-field" name="editOperativeForm-lastName" formControlName="lastName" placeholder="Last Name">
+                <span class="errorValdation" *ngIf="editOperativeForm.controls.lastName.touched && editOperativeForm.controls.lastName.errors?.required">Please enter last lastName</span> 
               </div>
             </div>
             <div class="row">

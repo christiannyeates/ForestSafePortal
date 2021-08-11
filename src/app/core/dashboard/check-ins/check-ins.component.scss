@@ -1,3 +1,21 @@
 table {
     width: 100%;
   }
+  .mat-row:nth-child(odd){
+    background-color: #FAF1E3;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px; 
+    color: #000000;
+  }
+  .mat-row:nth-child(even){
+    background-color:#ffffff;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 18px; 
+    color: #000000; 
+  }

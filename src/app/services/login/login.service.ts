@@ -26,15 +26,19 @@ export class LoginService {
     login(authenticateModel: AuthenticateModel) {
         return this.repositoryService.post('auth/login', authenticateModel,false)
             .pipe(map((user: any) => {
+              debugger
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('access_token', user.token)  
+                localStorage.setItem('user_id', user.id) 
                 return user;
             })); 
       }
       getToken() {
         return localStorage.getItem('access_token');
       }
-    
+      getUserId() {
+        return localStorage.getItem('user_id');
+      }
       get isLoggedIn(): boolean {
         let authToken = localStorage.getItem('access_token');
         return (authToken !== null) ? true : false;

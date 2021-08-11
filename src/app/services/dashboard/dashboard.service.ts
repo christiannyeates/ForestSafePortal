@@ -13,22 +13,76 @@ export class DashboardService {
 asset:any;
   constructor(   private router: Router, private repositoryService: RepositoryService  ) { }
 
-  getAssets() {
-    return this.repositoryService.get('Asset/GetAssets',true)
-        .pipe(map((asset: any) => { 
-             return asset;
+ 
+  getCheckIns(operativeId:number) {
+    return this.repositoryService.get('DriverCheckin/GetDriverCheckin/'+operativeId,true)
+        .pipe(map((checkins: any) => { 
+             return checkins;
         })); 
   }
+  getAllCheckins() {
+     return this.repositoryService.get('DriverCheckin/GetAllCheckins/',true)
+         .pipe(map((checkins: any) => { 
+              return checkins;
+         })); 
+   }
+   
+   AddJob(Job:any ) {
+     return this.repositoryService.post('Job/AddJob', Job, true)
+         .pipe(map((response: any) => { 
+              return response;
+         })); 
+   }
   getJobs() {
     return this.repositoryService.get('Job/GetJobs',true)
-        .pipe(map((Job: any) => { 
-             return Job;
+        .pipe(map((Jobs: any) => { 
+             return Jobs;
         })); 
   }
-  AddAsset(assetModel:AssetModel ) {
-    return this.repositoryService.post('api/Asset/AddAsset', assetModel, true)
+  getShifts() {
+    return this.repositoryService.get('Shift/GetAllShift',true)
+        .pipe(map((shifts: any) => { 
+             return shifts;
+        })); 
+  }
+  getAllJobShifts() {
+     return this.repositoryService.get('Job/GetAllJobShifts',true)
+         .pipe(map((shifts: any) => { 
+              return shifts;
+         })); 
+   }
+  
+  addAsset(assetModel:AssetModel ) {
+    return this.repositoryService.post('Asset/AddAsset', assetModel, true)
         .pipe(map((response: any) => { 
              return response;
         })); 
   }
+  getAssets() {
+     return this.repositoryService.get('Asset/GetAssets',true)
+         .pipe(map((asset: any) => { 
+              return asset;
+         })); 
+   }
+
+  getAllOperatives() {
+     return this.repositoryService.get('Auth/GetOperatives', true)
+         .pipe(map((response: any) => { 
+              return response;
+         })); 
+   }
+
+   getOperative(operativeId?:number) {
+     return this.repositoryService.get('Auth/GetOperative/'+operativeId,true)
+         .pipe(map((operative: any) => { 
+              return operative;
+         })); 
+   }
+   UpdateOperative(OperativeModel:any ) {
+     return this.repositoryService.post('Auth/UpdateOperative', OperativeModel, true)
+         .pipe(map((response: any) => { 
+              return response;
+         })); 
+   }
+  
 }

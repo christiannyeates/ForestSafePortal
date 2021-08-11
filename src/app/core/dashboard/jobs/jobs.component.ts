@@ -57,27 +57,24 @@ export class JobsComponent implements OnInit {
     });
   }
   
-  onSubmitNewJob() {
-    debugger
-    if (this.NewJobForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.dashboardService.AddAsset(this._AssetValue()).subscribe(() => { debugger;   });
+  onSubmitNewJob() { 
+    if (this.NewJobForm.valid) { 
+      this.dashboardService.AddJob(this._JobValue()).subscribe(() => { debugger;   });
 
     }
   }
-  onSubmitEditJob() {
-    debugger
-    if (this.editJobForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.dashboardService.AddAsset(this._editAssetValue()).subscribe(() => { debugger;   });
+  onSubmitEditJob() { 
+    if (this.editJobForm.valid) { 
+      //TO Do: API not added yet
+      //this.dashboardService.addAsset(this._editJobValue()).subscribe(() => { debugger;   });
 
     }
   }
-  _AssetValue() {
+  _JobValue() {
     return this.NewJobForm.value;
   }
   
-  _editAssetValue() {
+  _editJobValue() {
     return this.editJobForm.value;
   }
 

@@ -27,20 +27,14 @@ export class OperativesComponent implements OnInit {
     this.NewOperativeForm = this.formBuilder.group({ 
       firstName:	 ['', [Validators.required]], 
       lastName: ['', [Validators.required]],  
-      Id:	 ['', [Validators.required]]  
-    });
-    
-    this.editOperativeForm = this.formBuilder.group({ 
-      firstName:	 ['', [Validators.required]], 
-      lastName: ['', [Validators.required]],  
-      Id:	 ['', [Validators.required]]  
-    });
+      operativeId:	 ['', [Validators.required]]  
+    }); 
   }
   editTriggerModal(operative:any, id:any) {
     this.editOperativeForm = this.formBuilder.group({ 
-      name:	 [operative.name, [Validators.required]], 
-      description: [operative.description, [Validators.required]],  
-      jobId:	 [operative.jobId, [Validators.required]]
+      firstName:	 [operative.firstName, [Validators.required]], 
+      lastName: [operative.lastName, [Validators.required]],  
+      operativeId:	 [operative.operativeId, [Validators.required]]
     }); 
     this.modalService.open(id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
@@ -48,8 +42,7 @@ export class OperativesComponent implements OnInit {
       this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
     });
   }
-  newTriggerModal(id:any) {
-    debugger
+  newTriggerModal(id:any) { 
     this.modalService.open(id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
     }, (res) => {
@@ -57,19 +50,18 @@ export class OperativesComponent implements OnInit {
     });
   }
   
-  onSubmitNewOperative() {
-    debugger
+  onSubmitNewOperative() { 
     if (this.NewOperativeForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.dashboardService.AddAsset(this._OperativesValue()).subscribe(() => { debugger;   });
+      // To DO: API not added yet
+      //this.dashboardService.addAsset(this._OperativesValue()).subscribe(() => { debugger;   });
 
     }
   }
-  onSubmitEditOperative() {
-    debugger
-    if (this.editOperativeForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.dashboardService.AddAsset(this._editOperativeValue()).subscribe(() => { debugger;   });
+  onSubmitEditOperative() { 
+    if (this.editOperativeForm.valid) { 
+      this.dashboardService.UpdateOperative(this._editOperativeValue()).subscribe(() => { 
+        window.location.reload();
+        });
 
     }
   }
@@ -91,14 +83,10 @@ export class OperativesComponent implements OnInit {
     }
   }
   LoadData() {  
-      this.dashboardService.getJobs().subscribe((data) => { 
-          debugger 
+      this.dashboardService.getAllOperatives().subscribe((data) => {   
           this.Operatives=data;
           this.OperativesCount=this.Operatives.length;
-        }, (error) => {
-          debugger
-          // handle error
-          debugger
+        }, (error) => { 
           if(error.status==401){
             this.loginService.doLogout();
             this.router.navigateByUrl('/'); 

@@ -1,13 +1,34 @@
 import {FormControl, Validators} from '@angular/forms';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { Component, OnInit } from '@angular/core';
-interface Week  {startDate:number, startMonth:string, endDate: number, endMonth:string};
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  description: string;
+import { Component, OnInit,ChangeDetectorRef  } from '@angular/core';
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';  
+import { LoginService } from 'src/app/services/login/login.service';
+import { Router } from '@angular/router'; 
+import { MatTableDataSource } from '@angular/material/table';
+
+interface Week  {startDate:number, startMonth:string, endDate: number, endMonth:string,startTime : Date,stopTime : Date};
+export interface Shift {
+  shiftId? : number,
+  operativeId : number,
+  operativeName :string,
+  startTime : Date,
+  stopTime : Date,
+  startLongitude? : string,
+  startLatitude ?: string,
+  stopLongitude? : string,
+  stopLatitude? : string,
+  shiftStatus? : string,
+  createdOn? : Date,
+  createdBy? : string
+  hours : string
+}
+export interface OperativeShift {
+  operativeId?: number,
+  operativeName?: string,
+  totalHours:string,
+  totalShifts? :number,
+  DateTime?:Date,
+  shifts ?: Shift[]
 }
 @Component({
   selector: 'app-time-sheet',
@@ -24,22 +45,32 @@ export interface PeriodicElement {
 export class TimeSheetComponent implements OnInit {
   weekControl = new FormControl('', Validators.required);
    monthNames  :string[] = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-   weeks: Week[] = [];
-   dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['name', 'weight', 'symbol', 'position'];
-  expandedElement!: PeriodicElement | null;
-   constructor() { 
+   weeks : Week[] = [];
+   selected !: Week;
+   shifts : Shift[] = [];
+   operativeShifts : OperativeShift[] = [];
+   dataSource : any;
+  columnsToDisplay = ['Date', 'Operative', 'Hours', 'StartShift', 'StopShift','StartLocation' ,'StopLocation'];
+  expandedElement!: any | null;
+   constructor( private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) { 
     this.getWeekList();
+
    } 
   ngOnInit(): void {
+    this.LoadData();
   }
-
+  DateFilter(data:any){
+    debugger
+    this.FilterShifts(data.startTime,data.stopTime);
+  }
   getWeekList(){
     let date= new Date(); 
     for(let a=0;a<4;a++){
       var lastDate =new Date(date);
       this.addDays(lastDate, -7) 
       let week: Week = {
+        startTime : lastDate,
+        stopTime: date,
         endDate: date.getDate(),
         endMonth:this.monthNames[date.getMonth()],
         startDate : lastDate.getDate(),
@@ -48,92 +79,91 @@ export class TimeSheetComponent implements OnInit {
       this.weeks.push(week);
       date=this.addDays(lastDate,-1);
     }
+    this.selected = this.weeks[0];
     
+  }
+
+  CalculateHours(end:Date,start:Date){ 
+    var diffMs = (end.getTime() - start.getTime()); // milliseconds between start & end 
+    return this.miliSecondToTime(diffMs);
+  }
+  CalculateTotalHours(shifts:Shift[]){
+    var totalMiliseconds =0; 
+    for(var i=0; i < shifts.length;i++){   
+      var diffMs = (shifts[i].stopTime.getTime() - shifts[i].startTime.getTime());
+      diffMs = diffMs < 0 ? 0:diffMs;  
+      totalMiliseconds=totalMiliseconds+diffMs; 
+    }    
+    console.log(this.miliSecondToTime(totalMiliseconds));
+    return this.miliSecondToTime(totalMiliseconds);
+  }
+   miliSecondToTime(s:any) {
+     s= s < 0 ? 0: s ;
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+  
+    return hrs + ' h ' + mins + 'm' ;
   }
   addDays(todate: Date, days: number): Date {
     todate.setDate(todate.getDate() + days);
     return todate;
+  }
+  FilterShifts(startTime : Date, EndTime : Date){ 
+      this.operativeShifts=[];
+      let _shifts  =  this.shifts.filter(sh=>sh.startTime >= startTime && sh.stopTime <= EndTime);
+      let unique = [];
+      var operativeNames:string[]=[];
+      var distinct:number[] = [];
+      for( let i = 0; i < _shifts.length; i++ ){
+          if( !unique[_shifts[i].operativeId]){
+              distinct.push(_shifts[i].operativeId);
+              operativeNames.push(_shifts[i].operativeName)
+              unique[_shifts[i].operativeId] = 1;
+          }
+      }
+      for(var a=0;a<distinct.length;a++){
+        var _operativeShifts =_shifts.filter(op=>op.operativeId ==  distinct[a]);
+          var OS: OperativeShift = {totalShifts:_operativeShifts.length ,operativeId : distinct[a],operativeName:operativeNames[a],totalHours: this.CalculateTotalHours(_operativeShifts),shifts:_operativeShifts};
+          this.operativeShifts.push(OS);
+      }
+      this.dataSource=  new MatTableDataSource(this.operativeShifts);  
+      this.changeDetectorRefs.detectChanges();
+  }
+LoadData() {  
+  this.dashboardService.getShifts().subscribe((data) => { 
+      for( let i = 0; i < data.length; i++ ){
+        let shift: Shift ={ shiftId : data[i].shiftId,
+                            operativeId:data[i].operativeId,
+                            startTime: new Date(data[i].startTime),
+                            createdBy: data[i].createdBy,
+                            createdOn: new Date(data[i].createdOn),
+                            shiftStatus : data[i].shiftStatus,
+                            startLatitude: data[i].startLatitude,
+                            startLongitude: data[i].startLongitude,
+                            stopLatitude: data[i].stopLatitude,
+                            stopLongitude: data[i].stopLongitude,
+                            operativeName : data[i].operativeName,
+                            stopTime: new Date(data[i].stopTime),
+                            hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
+                          } 
+              this.shifts.push(shift);         
+      }
+      this.FilterShifts(this.weeks[0].startTime,this.weeks[0].stopTime);   
+      
+    }, (error) => {
+      debugger
+      // handle error
+      debugger
+      if(error.status==401){
+        this.loginService.doLogout();
+        this.router.navigateByUrl('/'); 
+      }
+      console.log("Error in PostListComponent: " + error.message);
+    }); 
+} 
 }
-
-}
-const ELEMENT_DATA: PeriodicElement[] = [
-  {
-    position: 1,
-    name: 'Hydrogen',
-    weight: 1.0079,
-    symbol: 'H',
-    description: `Hydrogen is a chemical element with symbol H and atomic number 1. With a standard
-        atomic weight of 1.008, hydrogen is the lightest element on the periodic table.`
-  }, {
-    position: 2,
-    name: 'Helium',
-    weight: 4.0026,
-    symbol: 'He',
-    description: `Helium is a chemical element with symbol He and atomic number 2. It is a
-        colorless, odorless, tasteless, non-toxic, inert, monatomic gas, the first in the noble gas
-        group in the periodic table. Its boiling point is the lowest among all the elements.`
-  }, {
-    position: 3,
-    name: 'Lithium',
-    weight: 6.941,
-    symbol: 'Li',
-    description: `Lithium is a chemical element with symbol Li and atomic number 3. It is a soft,
-        silvery-white alkali metal. Under standard conditions, it is the lightest metal and the
-        lightest solid element.`
-  }, {
-    position: 4,
-    name: 'Beryllium',
-    weight: 9.0122,
-    symbol: 'Be',
-    description: `Beryllium is a chemical element with symbol Be and atomic number 4. It is a
-        relatively rare element in the universe, usually occurring as a product of the spallation of
-        larger atomic nuclei that have collided with cosmic rays.`
-  }, {
-    position: 5,
-    name: 'Boron',
-    weight: 10.811,
-    symbol: 'B',
-    description: `Boron is a chemical element with symbol B and atomic number 5. Produced entirely
-        by cosmic ray spallation and supernovae and not by stellar nucleosynthesis, it is a
-        low-abundance element in the Solar system and in the Earth's crust.`
-  }, {
-    position: 6,
-    name: 'Carbon',
-    weight: 12.0107,
-    symbol: 'C',
-    description: `Carbon is a chemical element with symbol C and atomic number 6. It is nonmetallic
-        and tetravalent—making four electrons available to form covalent chemical bonds. It belongs
-        to group 14 of the periodic table.`
-  }, {
-    position: 7,
-    name: 'Nitrogen',
-    weight: 14.0067,
-    symbol: 'N',
-    description: `Nitrogen is a chemical element with symbol N and atomic number 7. It was first
-        discovered and isolated by Scottish physician Daniel Rutherford in 1772.`
-  }, {
-    position: 8,
-    name: 'Oxygen',
-    weight: 15.9994,
-    symbol: 'O',
-    description: `Oxygen is a chemical element with symbol O and atomic number 8. It is a member of
-         the chalcogen group on the periodic table, a highly reactive nonmetal, and an oxidizing
-         agent that readily forms oxides with most elements as well as with other compounds.`
-  }, {
-    position: 9,
-    name: 'Fluorine',
-    weight: 18.9984,
-    symbol: 'F',
-    description: `Fluorine is a chemical element with symbol F and atomic number 9. It is the
-        lightest halogen and exists as a highly toxic pale yellow diatomic gas at standard
-        conditions.`
-  }, {
-    position: 10,
-    name: 'Neon',
-    weight: 20.1797,
-    symbol: 'Ne',
-    description: `Neon is a chemical element with symbol Ne and atomic number 10. It is a noble gas.
-        Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about
-        two-thirds the density of air.`
-  },
-];
+ 

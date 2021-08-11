@@ -19,7 +19,7 @@ import { DashboardModule } from './core/dashboard/dashboard.module';
 import { JobsComponent } from './core/dashboard/jobs/jobs.component';
 import {MatTableModule} from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSelectModule } from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select'; 
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatTableModule, 
     MatSelectModule,
     NgbModule,
-    NoopAnimationsModule    
+    NoopAnimationsModule,    
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

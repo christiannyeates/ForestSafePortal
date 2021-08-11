@@ -15,7 +15,9 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {
+    this.gotoDashboard();
+   }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -28,9 +30,12 @@ export class LoginComponent implements OnInit {
     debugger
     if (this.loginForm.valid) {
       // tslint:disable-next-line: max-line-length
-      this.loginService.login(this._v()).subscribe(() => { debugger; this.router.navigateByUrl('/dashboard'); });
+      this.loginService.login(this._v()).subscribe(() => {  this.router.navigateByUrl('/dashboard'); });
 
     }
+  }
+  gotoDashboard(){
+    if(this.loginService.isLoggedIn == true){ this.router.navigateByUrl('/dashboard'); } 
   }
   _v() {
     return this.loginForm.value;

@@ -89,12 +89,11 @@
               <br/>
               <p class="asset-title">Service History</p> 
               <br/>
-              <div>
-                <p class="asset-title">Service Type: 2021 MOT</p>
+              <div *ngFor="let service of asset.services">
+                <p class="asset-title">{{service.name}}</p>
                 <br/>
-                <ul>
-                  <li>Brake pads replaced</li>
-                  <li>Brake pads replaced</li>
+                <ul> 
+                  <li> {{service.comment}}</li>
                 </ul>
               </div>
             </div>
@@ -119,6 +118,7 @@
               <div class="row">
                 <div class="col-sm-4">
                   <label class="form-field-title">Asset Name</label>
+                  <input type="hidden" class="form-control form-field" name="newAsset-Id" formControlName="Id" placeholder="Id" >
                   <input type="text" class="form-control form-field" name="newAsset-name" formControlName="name" placeholder="name" >
                   <span class="errorValdation" *ngIf="editAssetForm.controls.name.touched && editAssetForm.controls.name.errors?.required">Please enter name</span> 
                 </div>
@@ -148,7 +148,7 @@
               </div>
               <div class="row">
                 <div class="col-sm-12 asset-section-fields">
-                  <input type="submit" class="text-right " [ngStyle]="{'background':!editAssetForm.valid ? 'grey' : '','border':!editAssetForm.valid ? 'none' : '' }" [disabled]="!editAssetForm.valid" value="Save" name="editAssetForm-submit">
+                  <input type="submit" class="text-right " [ngStyle]="{'background':!editAssetForm.valid ? 'grey' : '','border':!editAssetForm.valid ? 'none' : '' }"  value="Save" name="editAssetForm-submit">
                   <button type="button" class="text-right " (click)="modal.close('Save click')">Cancel</button>
                   
                 </div> 

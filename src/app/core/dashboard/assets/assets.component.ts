@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service'; 
 import { AssetModel } from '../../models/asset-model';
 import { LoginService } from 'src/app/services/login/login.service';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap'; 
 
 @Component({
   selector: 'app-assets',
@@ -19,7 +19,7 @@ export class AssetsComponent implements OnInit {
   editAssetForm!: FormGroup;
   newSubmitted = false;
   editSubmitted = false;
-  constructor(private formBuilder: FormBuilder, private router: Router, private dashboardService: DashboardService, private loginService: LoginService,private modalService: NgbModal) {
+  constructor( private formBuilder: FormBuilder, private router: Router, private dashboardService: DashboardService, private loginService: LoginService,private modalService: NgbModal) {
 
     this.LoadData();
    }
@@ -31,34 +31,24 @@ export class AssetsComponent implements OnInit {
       photo:	 ['', [Validators.required]], 
       serialNumber:	 ['', [Validators.required]], 
       regNumber:	 ['', [Validators.required]]  
-    });
-    
-    this.editAssetForm = this.formBuilder.group({ 
-      name:	 ['', [Validators.required]], 
-      description: ['', [Validators.required]],  
-      photo:	 ['', [Validators.required]], 
-      serialNumber:	 ['', [Validators.required]], 
-      regNumber:	 ['', [Validators.required]]  
-    });
-
+    }); 
   }
   editTriggerModal(asset:any, id:any) {
     this.editAssetForm = this.formBuilder.group({ 
+      Id : [asset.assetId, Validators.required],
       name:	 [asset.name, [Validators.required]], 
       description: [asset.description, [Validators.required]],  
-      photo:	 [asset.photo, [Validators.required]], 
+      photo:	 [asset.photo], 
       serialNumber:	 [asset.serialNumber, [Validators.required]], 
       regNumber:	 [asset.regNumber, [Validators.required]]  
-    });
-    debugger
+    }); 
     this.modalService.open(id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
     }, (res) => {
       this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
     });
   }
-  newTriggerModal(id:any) {
-    debugger
+  newTriggerModal(id:any) { 
     this.modalService.open(id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
     }, (res) => {
@@ -67,21 +57,26 @@ export class AssetsComponent implements OnInit {
   }
   
   onSubmitNewAsset() {
-    debugger
     if (this.NewAssetForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.dashboardService.AddAsset(this._AssetValue()).subscribe(() => { debugger;   });
-
+      this.dashboardService.addAsset(this._AssetValue()).subscribe(() => {  
+        window.location.reload();
+      });
     }
   }
-  onSubmitEditAsset() {
-    debugger
-    if (this.NewAssetForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.dashboardService.AddAsset(this._editAssetValue()).subscribe(() => { debugger;   });
-
+  onSubmitEditAsset() {  
+    if (this.editAssetForm.valid) {
+      this.dashboardService.addAsset(this._editAssetValue()).subscribe(() => {  
+        window.location.reload();
+       },(error) => { 
+        if(error.status==401){
+          this.loginService.doLogout();
+          this.router.navigateByUrl('/'); 
+        }
+        console.log("Error in getassets: " + error.message);
+      } );
     }
   }
+   
   _AssetValue() {
     return this.NewAssetForm.value;
   }
@@ -100,18 +95,14 @@ export class AssetsComponent implements OnInit {
     }
   }
   LoadData() {  
-      this.dashboardService.getAssets().subscribe((data) => { 
-          debugger 
+      this.dashboardService.getAssets().subscribe((data) => {  
           this.Assets=data;
-        }, (error) => {
-          debugger
-          // handle error
-          debugger
+        }, (error) => { 
           if(error.status==401){
             this.loginService.doLogout();
             this.router.navigateByUrl('/'); 
           }
-          console.log("Error in PostListComponent: " + error.message);
+          console.log("Error in getassets: " + error.message);
         }); 
   } 
 }
