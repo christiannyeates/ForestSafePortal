@@ -41,14 +41,20 @@ export class CheckInsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  getWeekList(){
-    let date= new Date(); 
+  getWeekList(){ 
+    let date= new Date();
+    date.setHours(0, 0, 0, 0);
+    var day= date.getDay();
+    let DaysToSunday = 7-day;
+    if(DaysToSunday!=0){
+      this.addDays(date, DaysToSunday) 
+    }
     for(let a=0;a<4;a++){
       var lastDate =new Date(date);
-      this.addDays(lastDate, -7) 
+      this.addDays(lastDate, -6)  
       let week: Week = {
-        startTime : lastDate,
-        stopTime: date,
+        startTime :new Date(lastDate) ,
+        stopTime: new Date(date),
         endDate: date.getDate(),
         endMonth:this.monthNames[date.getMonth()],
         startDate : lastDate.getDate(),
@@ -57,8 +63,7 @@ export class CheckInsComponent implements OnInit {
       this.weeks.push(week);
       date=this.addDays(lastDate,-1);
     }
-    this.selected = this.weeks[0];
-    
+    this.selected = this.weeks[0]; 
   }
   addDays(todate: Date, days: number): Date {
     todate.setDate(todate.getDate() + days);

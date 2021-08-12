@@ -13,7 +13,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class AssetsComponent implements OnInit {
   Assets : any = [];
-  assetsCount : string = "29";
+  assetsCount : string = "0";
   closeModal: string="";
   NewAssetForm!: FormGroup;
   editAssetForm!: FormGroup;
@@ -28,7 +28,7 @@ export class AssetsComponent implements OnInit {
     this.NewAssetForm = this.formBuilder.group({ 
       name:	 ['', [Validators.required]], 
       description: ['', [Validators.required]],  
-      photo:	 ['', [Validators.required]], 
+      photo:	 ['7567346587'], 
       serialNumber:	 ['', [Validators.required]], 
       regNumber:	 ['', [Validators.required]]  
     }); 
@@ -38,7 +38,7 @@ export class AssetsComponent implements OnInit {
       Id : [asset.assetId, Validators.required],
       name:	 [asset.name, [Validators.required]], 
       description: [asset.description, [Validators.required]],  
-      photo:	 [asset.photo], 
+      photo:	 '7567346587',   
       serialNumber:	 [asset.serialNumber, [Validators.required]], 
       regNumber:	 [asset.regNumber, [Validators.required]]  
     }); 
@@ -97,6 +97,7 @@ export class AssetsComponent implements OnInit {
   LoadData() {  
       this.dashboardService.getAssets().subscribe((data) => {  
           this.Assets=data;
+          this.assetsCount=data.length;
         }, (error) => { 
           if(error.status==401){
             this.loginService.doLogout();

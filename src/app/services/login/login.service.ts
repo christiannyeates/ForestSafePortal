@@ -22,11 +22,15 @@ export class LoginService {
          
     }
 
-    
+    Register(authenticateModel: AuthenticateModel) {
+      return this.repositoryService.post('auth/Register', authenticateModel,false)
+          .pipe(map((user: any) => { 
+              return user;
+          })); 
+    }
     login(authenticateModel: AuthenticateModel) {
         return this.repositoryService.post('auth/login', authenticateModel,false)
-            .pipe(map((user: any) => {
-              debugger
+            .pipe(map((user: any) => { 
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('access_token', user.token)  
                 localStorage.setItem('user_id', user.id) 

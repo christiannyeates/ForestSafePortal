@@ -20,30 +20,45 @@
               </div> 
               <br/>
               <form [formGroup]="NewOperativeForm" (ngSubmit)="onSubmitNewOperative()" novalidate>
-                <div class="row">
-                    <div class="col-sm-6">
-                      <label class="form-field-title">ID</label>
-                      <input type="text" class="form-control form-field" name="OperativeId" formControlName="NewOperativeForm" placeholder="ID" >
-                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.OperativeId.touched && NewOperativeForm.controls.OperativeId.errors?.required">Please enter Operative Id</span> 
-                    </div> 
-                </div>
+                 
                   <div class="row">
                     <div class="col-sm-12">
                       <label class="form-field-title">First Name</label>
-                      <input type="text" class="form-control form-field" name="lastName" formControlName="NewOperativeForm" placeholder="First Name" >
+                      <input type="text" class="form-control form-field" name="NewOperativeForm-firstName" formControlName="firstName" placeholder="First Name" >
                       <span class="errorValdation" *ngIf="NewOperativeForm.controls.firstName.touched && NewOperativeForm.controls.firstName.errors?.required">Please enter First Name</span> 
                     </div> 
                   </div> 
                   <div class="row">
                     <div class="col-sm-12">
                       <label class="form-field-title">Last Name</label>
-                      <input type="text" class="form-control form-field" name="lastName" formControlName="NewOperativeForm" placeholder="Last Name" >
+                      <input type="text" class="form-control form-field" name="NewOperativeForm-lastName" formControlName="lastName" placeholder="Last Name" >
                       <span class="errorValdation" *ngIf="NewOperativeForm.controls.lastName.touched && NewOperativeForm.controls.lastName.errors?.required">Please enter Last Name</span> 
                     </div> 
                   </div>  
                   <div class="row">
+                    <div class="col-sm-12">
+                      <label class="form-field-title">Email</label>
+                      <input type="text" class="form-control form-field" name="NewOperativeForm-Email" formControlName="Email" placeholder="Email" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.Email.touched && NewOperativeForm.controls.Email.errors?.required">Please enter Email</span> 
+                    </div> 
+                  </div> 
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="form-field-title">Password</label>
+                      <input type="password" class="form-control form-field" name="NewOperativeForm-Password" formControlName="Password" placeholder="Password" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.Password.touched && NewOperativeForm.controls.Password.errors?.required">Please enter Password</span> 
+                    </div> 
+                  </div> 
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <label class="form-field-title">Role</label>
+                      <input type="text" class="form-control form-field" name="NewOperativeForm-Role" formControlName="Role" placeholder="Role" >
+                      <span class="errorValdation" *ngIf="NewOperativeForm.controls.Role.touched && NewOperativeForm.controls.Role.errors?.required">Please enter Role</span> 
+                    </div> 
+                  </div> 
+                  <div class="row">
                     <div class="col-sm-12 asset-section-fields">
-                      <input type="submit" class="text-right " [ngStyle]="{'background':!NewOperativeForm.valid ? 'grey' : '','border':!NewOperativeForm.valid ? 'none' : '' }" [disabled]="!NewOperativeForm.valid" value="Save" name="NewOperativeForm-submit">
+                      <input type="submit" class="text-right " [ngStyle]="{'background':!NewOperativeForm.valid ? 'grey' : '','border':!NewOperativeForm.valid ? 'none' : '' }" value="Save" name="NewOperativeForm-submit">
                       <button type="button" class="text-right " (click)="modal.close('Save click')">Cancel</button>
                       
                     </div> 
@@ -93,7 +108,7 @@
             <div class="row">
                 <div class="col-sm-6">
                   <label class="form-field-title">ID</label>
-                  <input type="text" class="form-control form-field" name="editOperativeForm-operativeId" formControlName="operativeId" placeholder="ID" >
+                  <input type="text" readonly class="form-control form-field" name="editOperativeForm-operativeId" formControlName="operativeId" placeholder="ID" >
                   <span class="errorValdation" *ngIf="editOperativeForm.controls.operativeId.touched && editOperativeForm.controls.operativeId.errors?.required">Please enter operativeId</span> 
                 </div> 
             </div>

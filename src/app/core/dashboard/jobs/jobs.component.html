@@ -21,14 +21,7 @@
                 </div> 
               </div> 
               <br/>
-              <form [formGroup]="NewJobForm" (ngSubmit)="onSubmitNewJob()" novalidate>
-                <div class="row">
-                    <div class="col-sm-6">
-                      <label class="form-field-title">ID</label>
-                      <input type="text" class="form-control form-field" name="newJob-jobid" formControlName="jobid" placeholder="ID" >
-                      <span class="errorValdation" *ngIf="NewJobForm.controls.jobid.touched && NewJobForm.controls.jobid.errors?.required">Please enter name</span> 
-                    </div> 
-                </div>
+              <form [formGroup]="NewJobForm" (ngSubmit)="onSubmitNewJob()" novalidate> 
                   <div class="row">
                     <div class="col-sm-12">
                       <label class="form-field-title">Job Name</label>
@@ -97,8 +90,7 @@
             <div class="row">
                 <div class="col-sm-6">
                   <label class="form-field-title">ID</label>
-                  <input type="text" class="form-control form-field" name="editJob-jobId" formControlName="jobId" placeholder="ID" >
-                  <span class="errorValdation" *ngIf="editJobForm.controls.jobId.touched && editJobForm.controls.jobId.errors?.required">Please enter name</span> 
+                  <input type="text" readonly class="form-control form-field" name="editJob-Id" formControlName="Id" placeholder="ID" > 
                 </div> 
             </div>
             <div class="row">

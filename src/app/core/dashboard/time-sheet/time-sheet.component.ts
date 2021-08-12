@@ -18,7 +18,7 @@ export interface Shift {
   stopLongitude? : string,
   stopLatitude? : string,
   shiftStatus? : string,
-  createdOn? : Date,
+  createdOn : Date,
   createdBy? : string
   hours : string
 }
@@ -59,18 +59,24 @@ export class TimeSheetComponent implements OnInit {
   ngOnInit(): void {
     this.LoadData();
   }
-  DateFilter(data:any){
-    debugger
+  DateFilter(data:any){  
     this.FilterShifts(data.startTime,data.stopTime);
   }
-  getWeekList(){
-    let date= new Date(); 
+  getWeekList(){ 
+    debugger
+    let date= new Date();
+    date.setHours(0, 0, 0, 0);
+    var day= date.getDay();
+    let DaysToSunday = 7-day;
+    if(DaysToSunday!=0){
+      this.addDays(date, DaysToSunday) 
+    }
     for(let a=0;a<4;a++){
       var lastDate =new Date(date);
-      this.addDays(lastDate, -7) 
+      this.addDays(lastDate, -6)  
       let week: Week = {
-        startTime : lastDate,
-        stopTime: date,
+        startTime :new Date(lastDate) ,
+        stopTime: new Date(date),
         endDate: date.getDate(),
         endMonth:this.monthNames[date.getMonth()],
         startDate : lastDate.getDate(),
@@ -110,11 +116,13 @@ export class TimeSheetComponent implements OnInit {
   }
   addDays(todate: Date, days: number): Date {
     todate.setDate(todate.getDate() + days);
+    todate.setHours(0, 0, 0, 0);
     return todate;
   }
   FilterShifts(startTime : Date, EndTime : Date){ 
+    
       this.operativeShifts=[];
-      let _shifts  =  this.shifts.filter(sh=>sh.startTime >= startTime && sh.stopTime <= EndTime);
+      let _shifts  =  this.shifts.filter(sh=>sh.createdOn >= startTime && sh.createdOn <= EndTime);
       let unique = [];
       var operativeNames:string[]=[];
       var distinct:number[] = [];
@@ -151,13 +159,10 @@ LoadData() {
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 
               this.shifts.push(shift);         
-      }
+      } 
       this.FilterShifts(this.weeks[0].startTime,this.weeks[0].stopTime);   
       
-    }, (error) => {
-      debugger
-      // handle error
-      debugger
+    }, (error) => { 
       if(error.status==401){
         this.loginService.doLogout();
         this.router.navigateByUrl('/'); 

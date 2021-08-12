@@ -13,7 +13,7 @@ import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class OperativesComponent implements OnInit {
   Operatives : any = [];
-  OperativesCount : string = "29";
+  OperativesCount : string = "0";
   closeModal: string="";
   NewOperativeForm!: FormGroup;
   editOperativeForm!: FormGroup;
@@ -27,7 +27,10 @@ export class OperativesComponent implements OnInit {
     this.NewOperativeForm = this.formBuilder.group({ 
       firstName:	 ['', [Validators.required]], 
       lastName: ['', [Validators.required]],  
-      operativeId:	 ['', [Validators.required]]  
+      Email:	 ['', [Validators.required]],
+      Password:	 ['', [Validators.required]],
+      Role:['Driver',[Validators.required]]
+
     }); 
   }
   editTriggerModal(operative:any, id:any) {
@@ -51,10 +54,11 @@ export class OperativesComponent implements OnInit {
   }
   
   onSubmitNewOperative() { 
-    if (this.NewOperativeForm.valid) {
-      // To DO: API not added yet
-      //this.dashboardService.addAsset(this._OperativesValue()).subscribe(() => { debugger;   });
-
+    debugger
+    if (this.NewOperativeForm.valid) { 
+      this.loginService.Register(this._OperativesValue()).subscribe(() => { 
+        window.location.reload();
+       }); 
     }
   }
   onSubmitEditOperative() { 
@@ -91,7 +95,7 @@ export class OperativesComponent implements OnInit {
             this.loginService.doLogout();
             this.router.navigateByUrl('/'); 
           }
-          console.log("Error in PostListComponent: " + error.message);
+          console.log("Error in getAllOperatives: " + error.message);
         }); 
   } 
 

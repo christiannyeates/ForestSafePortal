@@ -1,15 +1,12 @@
 <div class="container"> 
-    <br/>
-    <br/>
     <br/> 
-    <div class="row">
-        <div class="col-sm-4 text-left">
-            <h5 class="page-title">
+    <div class="row p-3">
+      
+        <div class="col-sm-12  ">
+            <h5 class="page-title text-left">
                Assets <span class="numberCircle"> {{ assetsCount }}</span>
-            </h5> 
-        </div>
-        <div class="col-sm-8  text-right">
-          <button class="button-new" (click)="newTriggerModal(NewModal)" title="+ New">+ New</button>
+            </h5>  
+          <button class="button-new text-right" (click)="newTriggerModal(NewModal)" title="+ New">+ New</button>
           <ng-template #NewModal let-modal class="modal-asset">
             <div class="modal-body modal-asset">
               <div class="row">
@@ -31,18 +28,15 @@
                     </div>
                     <div class="col-sm-8">
                       <label class="form-field-title">QR Code</label>
-                      <input type="text" class="form-control form-field" name="newAsset-name" formControlName="name" placeholder="name" >
-                      <span class="errorValdation" *ngIf="NewAssetForm.controls.name.touched && NewAssetForm.controls.name.errors?.required">Please enter name</span> 
+                      <input type="text" readonly class="form-control form-field" name="newAsset-photo" formControlName="photo" placeholder="Qr code" >  
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-sm-4">
-                      <label class="form-field-title">Asset Name</label>
-                      <input type="text" class="form-control form-field" name="newAsset-name" formControlName="name" placeholder="name" >
-                      <span class="errorValdation" *ngIf="NewAssetForm.controls.name.touched && NewAssetForm.controls.name.errors?.required">Please enter name</span> 
+                    <div class="col-sm-4">  
                       <label class="form-field-title">Serial Number </label>
                       <input type="text" class="form-control form-field" name="newAsset-serialNumber" formControlName="serialNumber" placeholder="Serial Number" >
                       <span class="errorValdation" *ngIf="NewAssetForm.controls.serialNumber.touched && NewAssetForm.controls.serialNumber.errors?.required">Please enter Serial Number</span> 
+                      
                       <label class="form-field-title">Registration </label>
                       <input type="text" class="form-control form-field" name="newAsset-regNumber" formControlName="regNumber" placeholder="Registration" >
                       <span class="errorValdation" *ngIf="NewAssetForm.controls.regNumber.touched && NewAssetForm.controls.regNumber.errors?.required">Please enter Registration </span> 
@@ -67,11 +61,10 @@
         </div> 
         
     </div> 
-  <div class="row"> 
-      <div *ngFor="let asset of Assets" class="col-sm-6">
-        <br/>
-        <div class="card main-card">
-          <div class="card-header c-h-background">
+    <div class="card-columns p-3"> 
+      <div *ngFor="let asset of Assets" class="card "> 
+        <div class="  main-card">
+          <div class="card-header c-h-background" style="height: 100px;">
             <div class="text-left">
               <h5 class="asset-card-name" >{{asset.name}}</h5>
               <p >{{asset.description}}</p>
@@ -79,20 +72,19 @@
             <img class=" text-right over" alt="qrcode"  src="../../../../assets/Images/qrcode.png">
             <img class="rounded-circle text-right under" alt="white" width="65" src="../../../../assets/Images/Ellipse.png" data-holder-rendered="true">
           </div>   
-            <div class="card-body">
+            <div class="card-body p-4">
               <div class="row">
                 <div class="col-sm-3"><p class="asset-title">ID</p><p class=".asset-value">{{asset.assetId}}</p></div>
                 <div class="col-sm-3"><p class="asset-title">Serial No</p><p class=".asset-value">{{asset.serialNumber}}</p></div>
-                <div class="col-sm-3"><p class="asset-title">Registrantion</p><p class=".asset-value">{{asset.regNumber}}</p></div>
-                <div class="col-sm-3"><button class="button-edit"  (click)="editTriggerModal(asset,EditModal)" title="Edit">Edit</button></div>
+                <div class="col-sm-3"><p class="asset-title">Registration</p><p class=".asset-value">{{asset.regNumber}}</p></div>
+                <div class="col-sm-3 "><button class="button-edit float-right"  (click)="editTriggerModal(asset,EditModal)" title="Edit">Edit</button></div>
               </div> 
               <br/>
               <p class="asset-title">Service History</p> 
               <br/>
               <div *ngFor="let service of asset.services">
-                <p class="asset-title">{{service.name}}</p>
-                <br/>
-                <ul> 
+                <span class="asset-title">{{service.name}}</span> 
+                <ul class="m-0"> 
                   <li> {{service.comment}}</li>
                 </ul>
               </div>
@@ -106,7 +98,7 @@
         <div class="modal-body modal-asset">
           <div class="row">
             <div class="col-sm-12">
-              <h4 class="modal-title text-left" id="modal-basic-title">New Asset</h4>
+              <h4 class="modal-title text-left" id="modal-basic-title">Edit Asset</h4>
               <button type="button" class="close text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
                 <span aria-hidden="true">×</span>
               </button>
@@ -124,15 +116,14 @@
                 </div>
                 <div class="col-sm-8">
                   <label class="form-field-title">QR Code</label>
-                  <input type="text" class="form-control form-field" name="newAsset-name" formControlName="name" placeholder="name" >
-                  <span class="errorValdation" *ngIf="editAssetForm.controls.name.touched && editAssetForm.controls.name.errors?.required">Please enter name</span> 
+                  <input type="text" readonly class="form-control form-field" name="newAsset-photo" formControlName="photo" placeholder="Qr code" > 
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-4">
-                  <label class="form-field-title">Asset Name</label>
-                  <input type="text" class="form-control form-field" name="newAsset-name" formControlName="name" placeholder="name" >
-                  <span class="errorValdation" *ngIf="editAssetForm.controls.name.touched && editAssetForm.controls.name.errors?.required">Please enter name</span> 
+                  <label class="form-field-title">ID</label>
+                  <input type="text" readonly class="form-control form-field" name="newAsset-Id" formControlName="Id" placeholder="Id" >
+                   
                   <label class="form-field-title">Serial Number </label>
                   <input type="text" class="form-control form-field" name="newAsset-serialNumber" formControlName="serialNumber" placeholder="Serial Number" >
                   <span class="errorValdation" *ngIf="editAssetForm.controls.serialNumber.touched && editAssetForm.controls.serialNumber.errors?.required">Please enter Serial Number</span> 
@@ -157,6 +148,6 @@
         </div> 
       </ng-template>
       
-    </div>
+    </div> 
 </div> 
     

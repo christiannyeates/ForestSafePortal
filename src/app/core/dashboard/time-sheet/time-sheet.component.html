@@ -50,8 +50,8 @@
              <td style="display: inline-block;">{{shift.hours}}</td> 
              <td style="display: inline-block;">{{shift.startTime | date:'shortTime' }} </td> 
              <td style="display: inline-block;">{{shift.stopTime | date:'shortTime' }} </td> 
-             <td style="display: inline-block;">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</td> 
-             <td style="display: inline-block;">{{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</td> 
+             <td style="display: inline-block;"><a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.startLatitude}},{{shift.startLongitude}}">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</a></td> 
+             <td style="display: inline-block;"><a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.stopLatitude}},{{shift.stopLongitude}}">{{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</a></td> 
            </tr> 
       </div>
     </td>

@@ -25,8 +25,13 @@ asset:any;
          .pipe(map((checkins: any) => { 
               return checkins;
          })); 
+   } 
+   UpdateJob(Job:any ) {
+     return this.repositoryService.post('Job/UpdateJob', Job, true)
+         .pipe(map((response: any) => { 
+              return response;
+         })); 
    }
-   
    AddJob(Job:any ) {
      return this.repositoryService.post('Job/AddJob', Job, true)
          .pipe(map((response: any) => { 

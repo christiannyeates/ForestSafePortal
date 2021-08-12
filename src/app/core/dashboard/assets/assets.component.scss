@@ -11,15 +11,14 @@
     right: 20px;
     position: absolute; 
     z-index: 1000;
-  }
-  
-  .over {
-    right: 35px;
-    top: 22px;
+} 
+.over {    
+    right: 36px;
+    top: 25px;
     position: absolute; 
     z-index: 1001;
   }
-  .numberCircle {
+.numberCircle {
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -147,4 +146,15 @@
 }
 .text-area{
     height: 223px;
+}
+@media (min-width: 768px)   { 
+.card-columns { 
+      column-count: 2;  
+    } 
+}
+
+@media (max-width: 767px)   { 
+    .card-columns { 
+          column-count: 1;  
+        } 
 }

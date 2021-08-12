@@ -47,9 +47,9 @@
              <td style="display: inline-block;"><input type="text" class="border-td-day" readonly value="{{shift.createdOn | date :'EEEE'}}" /> </td> 
              <td style="display: inline-block;">{{shift.operativeName}}</td> 
              <td style="display: inline-block;">{{shift.hours}}</td> 
-             <td style="display: inline-block;">{{shift.shiftStatus }} </td> 
              <td style="display: inline-block;">{{shift.Tonnage}} </td> 
-             <td style="display: inline-block;">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</td> 
+             <td style="display: inline-block;">{{shift.jobName}} </td> 
+             <td style="display: inline-block;" > <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.startLatitude}},{{shift.startLongitude}}">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</a> </td> 
              <td style="display: inline-block;">{{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</td> 
            </tr> 
       </div>

@@ -26,21 +26,15 @@ export class JobsComponent implements OnInit {
   ngOnInit(): void {
     this.NewJobForm = this.formBuilder.group({ 
       name:	 ['', [Validators.required]], 
-      description: ['', [Validators.required]],  
-      jobId:	 ['', [Validators.required]]  
+      description: ['', [Validators.required]]  
     });
-    
-    this.editJobForm = this.formBuilder.group({ 
-      name:	 ['', [Validators.required]], 
-      description: ['', [Validators.required]],  
-      jobId:	 ['', [Validators.required]]  
-    });
+     
   }
   editTriggerModal(job:any, id:any) {
     this.editJobForm = this.formBuilder.group({ 
       name:	 [job.name, [Validators.required]], 
       description: [job.description, [Validators.required]],  
-      jobId:	 [job.jobId, [Validators.required]]
+      Id:	 [job.jobId, [Validators.required]]
     }); 
     this.modalService.open(id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
@@ -59,15 +53,17 @@ export class JobsComponent implements OnInit {
   
   onSubmitNewJob() { 
     if (this.NewJobForm.valid) { 
-      this.dashboardService.AddJob(this._JobValue()).subscribe(() => { debugger;   });
+      this.dashboardService.AddJob(this._JobValue()).subscribe(() => { 
+        window.location.reload();
+        });
 
     }
   }
   onSubmitEditJob() { 
-    if (this.editJobForm.valid) { 
-      //TO Do: API not added yet
-      //this.dashboardService.addAsset(this._editJobValue()).subscribe(() => { debugger;   });
-
+    if (this.editJobForm.valid) {  
+      this.dashboardService.UpdateJob(this._editJobValue()).subscribe(() => { 
+        window.location.reload();
+      }); 
     }
   }
   _JobValue() {

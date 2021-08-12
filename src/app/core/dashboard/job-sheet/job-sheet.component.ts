@@ -10,6 +10,7 @@ export interface Shift {
   jobShiftId? : number,
   operativeId : number,
   operativeName :string,
+  jobName : string,
   startTime : Date,
   stopTime : Date,
   startLongitude? : string,
@@ -17,7 +18,7 @@ export interface Shift {
   stopLongitude? : string,
   stopLatitude? : string,
   shiftStatus? : string,
-  createdOn? : Date,
+  createdOn : Date,
   createdBy? : string
   hours : string
 }
@@ -61,14 +62,20 @@ export class JobSheetComponent implements OnInit {
   DateFilter(data:any){
     this.FilterShifts(data.startTime,data.stopTime);
   }
-  getWeekList(){
-    let date= new Date(); 
+  getWeekList(){ 
+    let date= new Date();
+    date.setHours(0, 0, 0, 0);
+    var day= date.getDay();
+    let DaysToSunday = 7-day;
+    if(DaysToSunday!=0){
+      this.addDays(date, DaysToSunday) 
+    }
     for(let a=0;a<4;a++){
       var lastDate =new Date(date);
-      this.addDays(lastDate, -7) 
+      this.addDays(lastDate, -6)  
       let week: Week = {
-        startTime : lastDate,
-        stopTime: date,
+        startTime :new Date(lastDate) ,
+        stopTime: new Date(date),
         endDate: date.getDate(),
         endMonth:this.monthNames[date.getMonth()],
         startDate : lastDate.getDate(),
@@ -112,7 +119,7 @@ export class JobSheetComponent implements OnInit {
   }
   FilterShifts(startTime : Date, EndTime : Date){ 
       this.operativeShifts=[];
-      let _shifts  =  this.shifts.filter(sh=>sh.startTime >= startTime && sh.stopTime <= EndTime);
+      let _shifts  =  this.shifts.filter(sh=>sh.createdOn >= startTime && sh.createdOn <= EndTime);
       let unique = [];
       var operativeNames:string[]=[];
       var distinct:number[] = [];
@@ -146,6 +153,7 @@ LoadData() {
                             stopLongitude: data[i].stopLongitude,
                             operativeName : data[i].operativeName,
                             stopTime: new Date(data[i].stopTime),
+                            jobName : data[i].jobName,
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 
               this.shifts.push(shift);         
