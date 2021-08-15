@@ -94,7 +94,8 @@ export class AssetsComponent implements OnInit {
       return  `with: ${reason}`;
     }
   }
-  LoadData() {  
+  LoadData() { 
+    debugger 
       this.dashboardService.getAssets().subscribe((data) => {  
           this.Assets=data;
           this.assetsCount=data.length;

@@ -7,8 +7,9 @@
       </div>
       <div class="row">
         <div class="col-12 col-md-12">
-          <div class="main-login-section">
-            <div class="main-login-section-inner"> 
+          <div class="main-login-section"> 
+            <div class="main-login-section-inner">  
+              <div class="errorValdation text-center" *ngIf="errorMessage!=''">{{errorMessage}}</div>
                 <img class="logo-center" title="Forest safe" src="../../../../assets/Images/logo_high1.png"> 
               <h5 class="panel-side__content__copy__title">Welcome Back!</h5>
               
@@ -21,13 +22,14 @@
                     <label>Username</label>
                     <input type="text" name="login-username" formControlName="email" placeholder="email" >
                     <span class="errorValdation" *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required">Please enter email</span>
-                    <!-- <span class="error" *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.email">Please enter username</span> -->
+                   
                   </div>
                   <div class="login-section-fields-single">
                     <label>Password</label>
                     <input type="password" name="login_password" formControlName="password" placeholder="Password">
                     <span class="errorValdation"></span>
                   </div>
+                  
                   <input type="submit" [ngStyle]="{'background':!loginForm.valid ? 'grey' : '','border':!loginForm.valid ? 'none' : '' }" [disabled]="!loginForm.valid" value="Log In" name="login-form-submit">
                 </div>
               </form>

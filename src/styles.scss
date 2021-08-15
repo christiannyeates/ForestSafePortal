@@ -267,6 +267,32 @@ border:0px;
 .custom-field .form-field .mat-form-field-wrapper .mat-form-field-flex input.mat-input-element{
 
 }
+.border-td-count{
+  width: 40px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #CCC8C2;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 18px;
+}
+.border-td-day{
+  width: 40px;
+  text-align: center;
+  background: #FFFFFF;
+  border: 1px solid #CCC8C2;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+}
 .custom-field .form-field .mat-form-field-wrapper .mat-form-field-flex .mat-icon-button {
   padding: 0px 9px;
   background: #5ca730;

@@ -60,6 +60,9 @@
     border-radius: 8px;
     border: 0px;
 }
+.asset-card-wdm{
+    display: inline-block !important;width: 100%; margin-bottom: 20px;
+}
 .asset-title{
     font-family: Roboto;
     font-style: normal;
@@ -67,6 +70,15 @@
     font-size: 11px;
     line-height: 13px; 
     text-transform: uppercase; 
+    color: #5F5F5F;
+    margin-bottom: 5px;
+}
+.service-date{
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;  
     color: #5F5F5F;
     margin-bottom: 5px;
 }

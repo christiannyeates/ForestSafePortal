@@ -68,7 +68,7 @@ export class TimeSheetComponent implements OnInit {
     date.setHours(0, 0, 0, 0);
     var day= date.getDay();
     let DaysToSunday = 7-day;
-    if(DaysToSunday!=0){
+    if(DaysToSunday!=7){
       this.addDays(date, DaysToSunday) 
     }
     for(let a=0;a<4;a++){
@@ -144,6 +144,7 @@ export class TimeSheetComponent implements OnInit {
 LoadData() {  
   this.dashboardService.getShifts().subscribe((data) => { 
       for( let i = 0; i < data.length; i++ ){
+        debugger
         let shift: Shift ={ shiftId : data[i].shiftId,
                             operativeId:data[i].operativeId,
                             startTime: new Date(data[i].startTime),
@@ -155,7 +156,7 @@ LoadData() {
                             stopLatitude: data[i].stopLatitude,
                             stopLongitude: data[i].stopLongitude,
                             operativeName : data[i].operativeName,
-                            stopTime: new Date(data[i].stopTime),
+                            stopTime:  new Date(data[i].stopTime),
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 
               this.shifts.push(shift);         
@@ -167,7 +168,7 @@ LoadData() {
         this.loginService.doLogout();
         this.router.navigateByUrl('/'); 
       }
-      console.log("Error in PostListComponent: " + error.message);
+      console.log("Error in loginService: " + error.message);
     }); 
 } 
 }

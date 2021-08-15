@@ -1,7 +1,6 @@
 <div class="container"> 
     <br/> 
     <div class="row p-3">
-      
         <div class="col-sm-12  ">
             <h5 class="page-title text-left">
                Assets <span class="numberCircle"> {{ assetsCount }}</span>
@@ -60,11 +59,12 @@
           </ng-template>
         </div> 
         
-    </div> 
+    </div>
+    <br/> 
     <div class="card-columns p-3"> 
-      <div *ngFor="let asset of Assets" class="card "> 
-        <div class="  main-card">
-          <div class="card-header c-h-background" style="height: 100px;">
+      <div *ngFor="let asset of Assets" > 
+        <div class="card  main-card asset-card-wdm"  >
+          <div class="card-header c-h-background" style="height: 90px;">
             <div class="text-left">
               <h5 class="asset-card-name" >{{asset.name}}</h5>
               <p >{{asset.description}}</p>
@@ -85,14 +85,17 @@
               <div *ngFor="let service of asset.services">
                 <span class="asset-title">{{service.name}}</span> 
                 <ul class="m-0"> 
-                  <li> {{service.comment}}</li>
+                  <li> {{service.comment}} </li>
                 </ul>
+                <span  class="service-date">Created at: {{service.createdOn |  date :' MMM d, y, h:mm:ss a'}}</span>
               </div>
             </div>
-        </div>
-        
-
-
+      
+      
+      
+      
+          </div>
+         <br/>
       </div>  
       <ng-template #EditModal let-modal class="modal-asset">
         <div class="modal-body modal-asset">

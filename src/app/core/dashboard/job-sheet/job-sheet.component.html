@@ -44,13 +44,13 @@
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="example-element-detail" style="display: block;" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <tr class="row internal-tr" style="display: block;" *ngFor="let shift of element.shifts" > 
-             <td style="display: inline-block;"><input type="text" class="border-td-day" readonly value="{{shift.createdOn | date :'EEEE'}}" /> </td> 
+             <td style="display: inline-block;"><input type="text" class="border-td-day" readonly value="{{shift.createdOn | date :'EEE'}}" /> </td> 
              <td style="display: inline-block;">{{shift.operativeName}}</td> 
              <td style="display: inline-block;">{{shift.hours}}</td> 
-             <td style="display: inline-block;">{{shift.Tonnage}} </td> 
+             <td style="display: inline-block;">{{shift.tonnage}} </td> 
              <td style="display: inline-block;">{{shift.jobName}} </td> 
              <td style="display: inline-block;" > <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.startLatitude}},{{shift.startLongitude}}">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</a> </td> 
-             <td style="display: inline-block;">{{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</td> 
+             <td style="display: inline-block;"> <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.stopLatitude}},{{shift.stopLongitude}}"> {{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</a> </td> 
            </tr> 
       </div>
     </td>

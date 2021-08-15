@@ -13,9 +13,11 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
   submitted = false;
+  errorMessage : string = "";
 
   // tslint:disable-next-line: max-line-length
   constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {
+    debugger
     this.gotoDashboard();
    }
 
@@ -28,9 +30,13 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     debugger
-    if (this.loginForm.valid) {
-      // tslint:disable-next-line: max-line-length
-      this.loginService.login(this._v()).subscribe(() => {  this.router.navigateByUrl('/dashboard'); });
+    if (this.loginForm.valid) { 
+      this.errorMessage="";
+      this.loginService.login(this._v()).subscribe(() => {
+          this.router.navigateByUrl('/dashboard'); 
+        }, (error) => {  
+        this.errorMessage = "Error: Invalid Email or Password." ; 
+      });
 
     }
   }

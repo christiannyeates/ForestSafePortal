@@ -46,7 +46,7 @@ export class CheckInsComponent implements OnInit {
     date.setHours(0, 0, 0, 0);
     var day= date.getDay();
     let DaysToSunday = 7-day;
-    if(DaysToSunday!=0){
+    if(DaysToSunday!=7){
       this.addDays(date, DaysToSunday) 
     }
     for(let a=0;a<4;a++){

@@ -20,7 +20,8 @@ export interface Shift {
   shiftStatus? : string,
   createdOn : Date,
   createdBy? : string
-  hours : string
+  hours : string,
+  tonnage : number
 }
 export interface OperativeShift {
   operativeId?: number,
@@ -50,8 +51,8 @@ export class JobSheetComponent implements OnInit {
   shifts : Shift[] = [];
   operativeShifts : OperativeShift[] = [];
   dataSource : any;
- columnsToDisplay = ['Date', 'Operative', 'Hours', 'Tonnage', 'Jobs','StartLocation' ,'StopLocation'];
- expandedElement!: any | null;
+  columnsToDisplay = ['Date', 'Operative', 'Hours', 'Tonnage', 'Jobs','StartLocation' ,'StopLocation'];
+  expandedElement!: any | null;
   constructor(private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) {
     this.getWeekList();
    }
@@ -67,7 +68,7 @@ export class JobSheetComponent implements OnInit {
     date.setHours(0, 0, 0, 0);
     var day= date.getDay();
     let DaysToSunday = 7-day;
-    if(DaysToSunday!=0){
+    if(DaysToSunday!=7){
       this.addDays(date, DaysToSunday) 
     }
     for(let a=0;a<4;a++){
@@ -140,6 +141,7 @@ export class JobSheetComponent implements OnInit {
   }
 LoadData() {  
   this.dashboardService.getAllJobShifts().subscribe((data) => {  
+    debugger
       for( let i = 0; i < data.length; i++ ){
         let shift: Shift ={ jobShiftId : data[i].jobShiftId,
                             operativeId:data[i].operativeId,
@@ -154,6 +156,7 @@ LoadData() {
                             operativeName : data[i].operativeName,
                             stopTime: new Date(data[i].stopTime),
                             jobName : data[i].jobName,
+                            tonnage : data[i].Tonnage == null?0:data[i].Tonnage,
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 
               this.shifts.push(shift);         
@@ -165,7 +168,7 @@ LoadData() {
         this.loginService.doLogout();
         this.router.navigateByUrl('/'); 
       }
-      console.log("Error in PostListComponent: " + error.message);
+      console.log("Error in getAllJobShifts: " + error.message);
     }); 
 } 
 
