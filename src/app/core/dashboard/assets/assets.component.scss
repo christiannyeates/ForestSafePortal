@@ -1,12 +1,7 @@
 .c-h-background{
     background-color: #F9CA8A;
 }
-.text-right{
-    text-align:right;float:right;
-}
-.text-left{
-    text-align:left;float:left;
-}
+
 .under {
     right: 20px;
     position: absolute; 
@@ -97,22 +92,7 @@
     line-height: 28px; 
     color: #000000;
 }
-.form-field{
-    background: #F2EFEB;
-    border-radius: 4px;
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    color: #000000;
-}
-.form-field-title{
-    font-family: Roboto;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 15px;
-    line-height: 18px; 
-    color: #5E5E5E;
-}
+
 @media (min-width: 768px)   { 
     .modal-asset{
          width: 808px;   

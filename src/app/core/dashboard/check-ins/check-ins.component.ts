@@ -6,6 +6,7 @@ import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { AssetModel } from '../../models/asset-model'; 
 import { LoginService } from 'src/app/services/login/login.service';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ConvertToBSTService } from 'src/app/services/convert-to-bst.service';
 import { MatTableDataSource } from '@angular/material/table';
 interface Week  {startDate:number, startMonth:string, endDate: number, endMonth:string,startTime : Date,stopTime : Date};
 
@@ -34,7 +35,7 @@ export class CheckInsComponent implements OnInit {
   CheckIns : CheckIn[] = [];
   displayedColumns: string[] = ['Dateandtime', 'Operative', 'Location', 'Comment'];
   dataSource : any;
-  constructor(private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService,private loginService: LoginService) {
+  constructor(private convertToBSTService : ConvertToBSTService,private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService,private loginService: LoginService) {
     this.getWeekList();
     this.LoadData();
    }
@@ -78,6 +79,7 @@ export class CheckInsComponent implements OnInit {
     this.changeDetectorRefs.detectChanges();
 }
   LoadData() {  
+    debugger
     this.dashboardService.getAllCheckins().subscribe((data) => { 
         for( let i = 0; i < data.length; i++ ){
           let checkin: CheckIn ={ 
@@ -87,8 +89,8 @@ export class CheckInsComponent implements OnInit {
                                 latitude : data[i].latitude,
                                 createdOn : data[i].createdOn,
                                 longitude : data[i].longitude,
-                                Id : data[i].Id,
-                                checkinDatetime :new Date( data[i].checkinDatetime),
+                                Id : data[i].id,
+                                checkinDatetime :new Date(this.convertToBSTService.getLondonTime(new Date( data[i].checkinDatetime),null)) ,
                                 weight : data[i].weigth,
                                 position : data[i].position
                               } 

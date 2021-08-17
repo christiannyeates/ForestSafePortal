@@ -27,10 +27,15 @@
     <th mat-header-cell *matHeaderCellDef> Tonnage</th>
     <td mat-cell *matCellDef="let element">   </td>
   </ng-container>
-  <ng-container matColumnDef="Jobs">
-    <th mat-header-cell *matHeaderCellDef> Jobs</th>
+  <ng-container matColumnDef="Job">
+    <th mat-header-cell *matHeaderCellDef> Job</th>
     <td mat-cell *matCellDef="let element">   </td>
   </ng-container>
+  <ng-container matColumnDef="SafetyChecks">
+    <th mat-header-cell *matHeaderCellDef> Safety Checks</th>
+    <td mat-cell *matCellDef="let element">   </td>
+  </ng-container>
+  
   <ng-container matColumnDef="StartLocation">
     <th mat-header-cell *matHeaderCellDef> Start Location </th>
     <td mat-cell *matCellDef="let element">   </td>
@@ -44,18 +49,21 @@
     <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
       <div class="example-element-detail" style="display: block;" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
           <tr class="row internal-tr" style="display: block;" *ngFor="let shift of element.shifts" > 
-             <td style="display: inline-block;"><input type="text" class="border-td-day" readonly value="{{shift.createdOn | date :'EEE'}}" /> </td> 
-             <td style="display: inline-block;">{{shift.operativeName}}</td> 
-             <td style="display: inline-block;">{{shift.hours}}</td> 
-             <td style="display: inline-block;">{{shift.tonnage}} </td> 
-             <td style="display: inline-block;">{{shift.jobName}} </td> 
-             <td style="display: inline-block;" > <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.startLatitude}},{{shift.startLongitude}}">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</a> </td> 
-             <td style="display: inline-block;"> <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.stopLatitude}},{{shift.stopLongitude}}"> {{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</a> </td> 
+             <td style="display: inline-block;margin: 0px;"><input type="text" class="border-td-day" readonly value="{{shift.createdOn | date :'EEE'}}" /> </td> 
+             <td style="display: inline-block;margin: 2px;">{{shift.operativeName}}</td> 
+             <td style="display: inline-block;margin: 1px;">{{shift.hours}}</td> 
+             <td style="display: inline-block;margin: 1px;">{{shift.tonnage}} </td> 
+             <td style="display: inline-block;margin: 1px;">{{shift.jobName}} </td> 
+
+             <td style="display: inline-block;margin: 1px;" (click)="LoadCheckFormPopUp(shift,SafetyCheckFormResult)" *ngIf="shift.SafetyCheckFormResultId==null">Not available </td> 
+             <td style="display: inline-block;margin: 1px;"(click)="LoadCheckFormPopUp(shift,SafetyCheckFormResult)" *ngIf="shift.SafetyCheckFormResultId!=null">{{shift.SafetyCheckFormResultId}} </td> 
+             <td style="display: inline-block;margin: 1px;" > <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.startLatitude}},{{shift.startLongitude}}">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</a> </td> 
+             <td style="display: inline-block;margin: 1px;"> <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.stopLatitude}},{{shift.stopLongitude}}"> {{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</a> </td> 
            </tr> 
       </div>
     </td>
   </ng-container>
-
+  
   <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
   <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
       class=" external-tr example-element-row"
@@ -66,4 +74,111 @@
     
   </tr>
 </table>
+<ng-template #SafetyCheckFormResult let-modal class="modal-asset"  >
+  <div class="modal-body modal-asset">
+    <br/>
+    <div class="row">
+      <div class="col-sm-12">
+        <h4 class="model-title-job text-left" id="modal-basic-title">Safety Checks </h4>
+        <button type="button" class="close text-right" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>   
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="form-field-title">Asset : </label>
+          <span> {{_safetyCheckFormResult.assetName}}</span>
+        </div>
+        <div class="col-sm-6">
+          <label class="form-field-title">Engine Hours : </label>
+          <span *ngIf="_safetyCheckFormResult.engineHours==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.engineHours!=true"> Fail</span>    
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="form-field-title">Engine Oil : </label>
+          <span *ngIf="_safetyCheckFormResult.engineOil==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.engineOil!=true"> Fail</span>     
+        </div>
+        <div class="col-sm-6">
+          <label class="form-field-title">Transmission Oil : </label>
+          <span *ngIf="_safetyCheckFormResult.transmissionOil==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.transmissionOil!=true"> Fail</span>      
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="form-field-title">Hydraulic Oil : </label>
+          <span *ngIf="_safetyCheckFormResult.hydraulicOil==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.hydraulicOil!=true"> Fail</span>
+        </div>
+        <div class="col-sm-6">
+          <label class="form-field-title">Coolant : </label>
+          <span *ngIf="_safetyCheckFormResult.coolant==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.coolant!=true"> Fail</span> 
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="form-field-title">Wheels / Tyres : </label>
+          <span *ngIf="_safetyCheckFormResult.wheelsTyres==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.wheelsTyres!=true"> Fail</span>
+        </div>
+        <div class="col-sm-6">
+          <label class="form-field-title">Leak Check : </label>
+          <span *ngIf="_safetyCheckFormResult.leaks==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.leaks!=true"> Fail</span> 
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="form-field-title">Windows Clean : </label>
+          <span *ngIf="_safetyCheckFormResult.windowsClean==true"> Yes</span>
+          <span *ngIf="_safetyCheckFormResult.windowsClean!=true"> No</span>  
+        </div>
+        <div class="col-sm-6">
+          <label class="form-field-title">Fire Extinguisher : </label>
+          <span *ngIf="_safetyCheckFormResult.fireExtinguisher==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.fireExtinguisher!=true"> Fail</span>  
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label class="form-field-title">First Aid Kit : </label>
+          <span *ngIf="_safetyCheckFormResult.firstAidKit==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.firstAidKit!=true"> Fail</span>   
+        </div>
+        <div class="col-sm-6">
+          <label class="form-field-title">Spill Kit : </label>
+          <span *ngIf="_safetyCheckFormResult.spillKit==true"> Pass</span>
+          <span *ngIf="_safetyCheckFormResult.spillKit!=true"> Fail</span>   
+        </div>
+      </div>
+      <br/> 
+      <hr/>
+      <div class="row"> 
+        <div class="col-sm-8">
+          <label class="form-field-title">Comments</label>
+          {{_safetyCheckFormResult.comment}}
+        </div>
+      </div>
+      
+    </div> 
+    <br/> 
+  </div> 
+</ng-template>
 </div>
+

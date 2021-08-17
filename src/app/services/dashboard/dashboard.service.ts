@@ -89,5 +89,12 @@ asset:any;
               return response;
          })); 
    }
+
+   GetSafetyCheckFormResult(SafetyCheckFormResultId?:number) {
+     return this.repositoryService.get('SafetyCheckForm/GetSafetyCheckFormResult/'+SafetyCheckFormResultId,true)
+         .pipe(map((SafetyCheckFormResult: any) => { 
+              return SafetyCheckFormResult;
+         })); 
+   }
   
 }

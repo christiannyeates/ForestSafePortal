@@ -5,7 +5,28 @@ import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router'; 
 import { MatTableDataSource } from '@angular/material/table';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 interface Week  {startDate:number, startMonth:string, endDate: number, endMonth:string,startTime : Date,stopTime : Date};
+
+export interface SafetyCheckFormResult{
+  assetId: number,
+  comment: string,
+  coolant: string,
+  createdOn: Date,
+  engineHours: number,
+  engineOil: boolean,
+  fireExtinguisher: boolean,
+  firstAidKit: boolean,
+  hydraulicOil: boolean,
+  id: number,
+  jobId: number,
+  leaks: boolean,
+  operativeId: number,
+  safetyCheckAnswer: string,
+  spillKit: boolean,
+  transmissionOil: boolean,
+  wheelsTyres: boolean, 
+}
 export interface Shift {
   jobShiftId? : number,
   operativeId : number,
@@ -13,6 +34,7 @@ export interface Shift {
   jobName : string,
   startTime : Date,
   stopTime : Date,
+  SafetyCheckFormResultId:number,
   startLongitude? : string,
   startLatitude ?: string,
   stopLongitude? : string,
@@ -48,12 +70,14 @@ export class JobSheetComponent implements OnInit {
   monthNames  :string[] = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
   weeks : Week[] = [];
   selected !: Week;
+  closeModal: string="";
+  _safetyCheckFormResult:any={}
   shifts : Shift[] = [];
   operativeShifts : OperativeShift[] = [];
   dataSource : any;
-  columnsToDisplay = ['Date', 'Operative', 'Hours', 'Tonnage', 'Jobs','StartLocation' ,'StopLocation'];
+  columnsToDisplay = ['Date', 'Operative', 'Hours', 'Tonnage', 'Job','SafetyChecks','StartLocation' ,'StopLocation'];
   expandedElement!: any | null;
-  constructor(private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) {
+  constructor(private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService, private modalService: NgbModal) {
     this.getWeekList();
    }
 
@@ -114,6 +138,52 @@ export class JobSheetComponent implements OnInit {
   
     return hrs + ' h ' + mins + 'm' ;
   }
+  LoadCheckFormPopUp(shift:Shift,Id:any){
+    this.dashboardService.GetSafetyCheckFormResult(shift.SafetyCheckFormResultId).subscribe((data:any) => {  
+      debugger 
+      this._safetyCheckFormResult ={  assetId : data.assetId,
+                                      comment: data.comment,
+                                      coolant: data.coolant,
+                                      createdOn: data.createdOn,
+                                      engineHours: data.engineHours,
+                                      engineOil: data.engineOil,
+                                      fireExtinguisher: data.fireExtinguisher,
+                                      firstAidKit: data.firstAidKit,
+                                      hydraulicOil: data.hydraulicOil,
+                                      id: data.id,
+                                      jobId: data.jobId,
+                                      leaks: data.leaks,
+                                      operativeId: data.operativeId,
+                                      safetyCheckAnswer: data.safetyCheckAnswer,
+                                      spillKit: data.spillKit,
+                                      transmissionOil: data.transmissionOil,
+                                      wheelsTyres: data.wheelsTyres,
+                                      windowsClean: data.windowsClean,
+                                      assetName : data.assetName
+                                    } 
+      this.modalService.open( Id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
+        this.closeModal = `Closed with: ${res}`;
+      }, (res) => {
+        this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
+      });
+      }, (error) => {  
+        if(error.status==401){
+          this.loginService.doLogout();
+          this.router.navigateByUrl('/'); 
+        }
+        console.log("Error in getAllJobShifts: " + error.message);
+      }); 
+    
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
   addDays(todate: Date, days: number): Date {
     todate.setDate(todate.getDate() + days);
     return todate;
@@ -156,6 +226,7 @@ LoadData() {
                             operativeName : data[i].operativeName,
                             stopTime: new Date(data[i].stopTime),
                             jobName : data[i].jobName,
+                            SafetyCheckFormResultId : data[i].safetyCheckFormResultId,
                             tonnage : data[i].Tonnage == null?0:data[i].Tonnage,
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 

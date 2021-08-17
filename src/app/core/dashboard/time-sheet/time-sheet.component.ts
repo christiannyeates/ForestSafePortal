@@ -19,7 +19,8 @@ export interface Shift {
   stopLatitude? : string,
   shiftStatus? : string,
   createdOn : Date,
-  createdBy? : string
+  createdBy? : string,
+  overnight : boolean,
   hours : string
 }
 export interface OperativeShift {
@@ -50,7 +51,7 @@ export class TimeSheetComponent implements OnInit {
    shifts : Shift[] = [];
    operativeShifts : OperativeShift[] = [];
    dataSource : any;
-  columnsToDisplay = ['Date', 'Operative', 'Hours', 'StartShift', 'StopShift','StartLocation' ,'StopLocation'];
+  columnsToDisplay = ['Date', 'Operative', 'Hours', 'StartShift', 'StopShift','OverNight','StartLocation' ,'StopLocation'];
   expandedElement!: any | null;
    constructor( private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) { 
     this.getWeekList();
@@ -156,7 +157,8 @@ LoadData() {
                             stopLatitude: data[i].stopLatitude,
                             stopLongitude: data[i].stopLongitude,
                             operativeName : data[i].operativeName,
-                            stopTime:  new Date(data[i].stopTime),
+                            stopTime:   new Date(data[i].stopTime),
+                            overnight : data[i].overnight,
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 
               this.shifts.push(shift);         
