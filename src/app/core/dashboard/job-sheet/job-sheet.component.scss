@@ -3,6 +3,6 @@
   tr.example-element-row:not(.example-expanded-row):active { background: #F9CA8A;} 
   .example-element-row td { border-bottom-width: 0; }
   .example-element-detail { overflow: hidden; display: flex; } 
- span.mat-select-min-line{ color:#000 !important; }
+  span.mat-select-min-line{ color:#000 !important; }
   table { width: 100%; table-layout: fixed; }
-  th, td { overflow: hidden; width: 150px; text-overflow: ellipsis; white-space: nowrap;  }
+  th, td { overflow: hidden; width: 150px; text-overflow: ellipsis; white-space: nowrap;}

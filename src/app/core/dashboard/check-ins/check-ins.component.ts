@@ -28,6 +28,7 @@ export interface CheckIn {
   styleUrls: ['./check-ins.component.scss']
 })
 export class CheckInsComponent implements OnInit {
+  BST:string='+0100';
   weekControl = new FormControl('', Validators.required);
   monthNames  :string[] = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
   weeks : Week[] = [];
@@ -36,8 +37,10 @@ export class CheckInsComponent implements OnInit {
   displayedColumns: string[] = ['Dateandtime', 'Operative', 'Location', 'Comment'];
   dataSource : any;
   constructor(private convertToBSTService : ConvertToBSTService,private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService,private loginService: LoginService) {
+    this.BST =this.convertToBSTService.getLondonTimeZone();
     this.getWeekList();
     this.LoadData();
+
    }
 
   ngOnInit(): void {
@@ -90,7 +93,7 @@ export class CheckInsComponent implements OnInit {
                                 createdOn : data[i].createdOn,
                                 longitude : data[i].longitude,
                                 Id : data[i].id,
-                                checkinDatetime :new Date(this.convertToBSTService.getLondonTime(new Date( data[i].checkinDatetime),null)) ,
+                                checkinDatetime : new Date( data[i].checkinDatetime) ,
                                 weight : data[i].weigth,
                                 position : data[i].position
                               } 

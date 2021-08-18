@@ -54,8 +54,8 @@
              <td class="internal-td"><input type="text" class="border-td-day" readonly value="{{shift.createdOn | date :'EEE'}}" /> </td> 
              <td class="internal-td">{{shift.operativeName}}</td> 
              <td class="internal-td">{{shift.hours}}</td>  
-             <td class="internal-td" >{{shift.startTime | date:'shortTime' }} </td> 
-             <td class="internal-td" *ngIf="shift.stopLongitude!=null">{{shift.stopTime | date:'shortTime' }} </td> 
+             <td class="internal-td" >{{shift.startTime | date:'shortTime':BST }} </td> 
+             <td class="internal-td" *ngIf="shift.stopLongitude!=null">{{shift.stopTime | date:'shortTime': BST }} </td> 
              <td class="internal-td" *ngIf="shift.stopLongitude==null"> - </td> 
              <td class="internal-td" *ngIf="shift.overnight==true"> Yes </td> 
              <td class="internal-td" *ngIf="shift.overnight!=true"> No </td>  

@@ -8,7 +8,7 @@
   tr.example-element-row:not(.example-expanded-row):active {
     background: #F9CA8A;
   }
-  .internal-td{display: inline-block;}
+  .internal-td{display: inline-block;margin: 2px;}
   .example-element-row td {
     border-bottom-width: 0;
   }

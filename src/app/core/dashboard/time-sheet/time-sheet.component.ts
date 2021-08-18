@@ -5,7 +5,7 @@ import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { LoginService } from 'src/app/services/login/login.service';
 import { Router } from '@angular/router'; 
 import { MatTableDataSource } from '@angular/material/table';
-
+import { ConvertToBSTService } from 'src/app/services/convert-to-bst.service';
 interface Week  {startDate:number, startMonth:string, endDate: number, endMonth:string,startTime : Date,stopTime : Date};
 export interface Shift {
   shiftId? : number,
@@ -45,15 +45,17 @@ export interface OperativeShift {
 })
 export class TimeSheetComponent implements OnInit {
   weekControl = new FormControl('', Validators.required);
-   monthNames  :string[] = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-   weeks : Week[] = [];
-   selected !: Week;
-   shifts : Shift[] = [];
-   operativeShifts : OperativeShift[] = [];
-   dataSource : any;
+  BST:string='+0100';
+  monthNames  :string[] = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+  weeks : Week[] = [];
+  selected !: Week;
+  shifts : Shift[] = [];
+  operativeShifts : OperativeShift[] = [];
+  dataSource : any;
   columnsToDisplay = ['Date', 'Operative', 'Hours', 'StartShift', 'StopShift','OverNight','StartLocation' ,'StopLocation'];
   expandedElement!: any | null;
-   constructor( private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) { 
+   constructor(private convertToBSTService : ConvertToBSTService, private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) { 
+    this.BST =this.convertToBSTService.getLondonTimeZone();
     this.getWeekList();
 
    } 
