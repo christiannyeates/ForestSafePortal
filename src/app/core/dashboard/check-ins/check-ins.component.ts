@@ -20,7 +20,8 @@ export interface CheckIn {
   longitude : string;
   checkinDatetime : Date;
   comment : string;
-  createdOn : string;
+  createdOn : Date;
+  checkinAt : Date;
 }  
 @Component({
   selector: 'app-check-ins',
@@ -76,24 +77,25 @@ export class CheckInsComponent implements OnInit {
   DateFilter(data:any){ 
     this.FilterShifts(data.startTime,data.stopTime);
   }
-  FilterShifts(startTime : Date, EndTime : Date){  
-    let _checkins  =  this.CheckIns.filter(ch=>ch.checkinDatetime >= startTime && ch.checkinDatetime <= EndTime); 
+  FilterShifts(startTime : Date, EndTime : Date){   
+    let _checkins  =  this.CheckIns.filter(ch=>ch.checkinAt >= startTime && ch.checkinAt <= EndTime); 
     this.dataSource=  new MatTableDataSource(_checkins);  
     this.changeDetectorRefs.detectChanges();
 }
-  LoadData() {  
-    debugger
+  LoadData() {   
     this.dashboardService.getAllCheckins().subscribe((data) => { 
         for( let i = 0; i < data.length; i++ ){
+          var ct=new Date( data[i].checkinDatetime);
           let checkin: CheckIn ={ 
                                 operativeId:data[i].operativeId,       
                                 operativeName : data[i].operativeName,  
                                 comment : data[i].comment,
                                 latitude : data[i].latitude,
-                                createdOn : data[i].createdOn,
+                                createdOn :new Date( data[i].createdOn),
                                 longitude : data[i].longitude,
                                 Id : data[i].id,
-                                checkinDatetime : new Date( data[i].checkinDatetime) ,
+                                checkinAt: new Date( data[i].checkinDatetime),
+                                checkinDatetime : new Date(Date.UTC(ct.getFullYear(), ct.getMonth(), ct.getDate(), ct.getHours(),ct.getMinutes()))  ,
                                 weight : data[i].weigth,
                                 position : data[i].position
                               } 

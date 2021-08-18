@@ -42,8 +42,7 @@ export class JobsComponent implements OnInit {
       this.closeModal = `Dismissed ${this.getDismissReason(res)}`;
     });
   }
-  newTriggerModal(id:any) {
-    debugger
+  newTriggerModal(id:any) { 
     this.modalService.open(id, {ariaLabelledBy: 'modal-basic-title'}).result.then((res) => {
       this.closeModal = `Closed with: ${res}`;
     }, (res) => {
@@ -84,14 +83,10 @@ export class JobsComponent implements OnInit {
     }
   }
   LoadData() {  
-      this.dashboardService.getJobs().subscribe((data) => { 
-          debugger 
+      this.dashboardService.getJobs().subscribe((data) => {  
           this.Jobs=data;
           this.jobsCount=this.Jobs.length;
-        }, (error) => {
-          debugger
-          // handle error
-          debugger
+        }, (error) => { 
           if(error.status==401){
             this.loginService.doLogout();
             this.router.navigateByUrl('/'); 

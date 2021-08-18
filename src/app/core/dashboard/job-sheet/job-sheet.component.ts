@@ -139,8 +139,7 @@ export class JobSheetComponent implements OnInit {
     return hrs + ' h ' + mins + 'm' ;
   }
   LoadCheckFormPopUp(shift:Shift,Id:any){
-    this.dashboardService.GetSafetyCheckFormResult(shift.SafetyCheckFormResultId).subscribe((data:any) => {  
-      debugger 
+    this.dashboardService.GetSafetyCheckFormResult(shift.SafetyCheckFormResultId).subscribe((data:any) => {   
       this._safetyCheckFormResult ={  assetId : data.assetId,
                                       comment: data.comment,
                                       coolant: data.coolant,
@@ -210,8 +209,7 @@ export class JobSheetComponent implements OnInit {
       this.changeDetectorRefs.detectChanges();
   }
 LoadData() {  
-  this.dashboardService.getAllJobShifts().subscribe((data) => {  
-    debugger
+  this.dashboardService.getAllJobShifts().subscribe((data) => {   
       for( let i = 0; i < data.length; i++ ){
         let shift: Shift ={ jobShiftId : data[i].jobShiftId,
                             operativeId:data[i].operativeId,

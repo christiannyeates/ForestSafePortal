@@ -17,7 +17,7 @@
     <!-- Dateandtime Column -->
     <ng-container matColumnDef="Dateandtime">
       <th mat-header-cell *matHeaderCellDef>  {{selected.startMonth}} {{selected.startDate}} -  <span  *ngIf="selected.startMonth!=selected.endMonth"> {{selected.endMonth}}</span>   {{selected.endDate}} </th>
-      <td mat-cell *matCellDef="let element"> {{element.checkinDatetime | date :'h:mm:ss a, MMM d, y ' : BST}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.checkinDatetime | date :'h:mm a, MMM d, y ' : BST}} </td>
     </ng-container>
   
     <!-- Operative Column -->

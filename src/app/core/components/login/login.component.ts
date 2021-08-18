@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
   errorMessage : string = "";
 
   // tslint:disable-next-line: max-line-length
-  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {
-    debugger
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) { 
     this.gotoDashboard();
    }
 
@@ -28,8 +27,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    debugger
+  onSubmit() { 
     if (this.loginForm.valid) { 
       this.errorMessage="";
       this.loginService.login(this._v()).subscribe(() => {

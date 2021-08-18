@@ -11,7 +11,7 @@ export interface Shift {
   shiftId? : number,
   operativeId : number,
   operativeName :string,
-  startTime : Date,
+  startTime : Date ,
   stopTime : Date,
   startLongitude? : string,
   startLatitude ?: string,
@@ -55,7 +55,7 @@ export class TimeSheetComponent implements OnInit {
   columnsToDisplay = ['Date', 'Operative', 'Hours', 'StartShift', 'StopShift','OverNight','StartLocation' ,'StopLocation'];
   expandedElement!: any | null;
    constructor(private convertToBSTService : ConvertToBSTService, private changeDetectorRefs: ChangeDetectorRef, private router: Router, private dashboardService: DashboardService, private loginService: LoginService) { 
-    this.BST =this.convertToBSTService.getLondonTimeZone();
+    this.BST =this.convertToBSTService.getLondonTimeZone(); 
     this.getWeekList();
 
    } 
@@ -65,8 +65,7 @@ export class TimeSheetComponent implements OnInit {
   DateFilter(data:any){  
     this.FilterShifts(data.startTime,data.stopTime);
   }
-  getWeekList(){ 
-    debugger
+  getWeekList(){  
     let date= new Date();
     date.setHours(0, 0, 0, 0);
     var day= date.getDay();
@@ -146,11 +145,12 @@ export class TimeSheetComponent implements OnInit {
   }
 LoadData() {  
   this.dashboardService.getShifts().subscribe((data) => { 
-      for( let i = 0; i < data.length; i++ ){
-        debugger
+      for( let i = 0; i < data.length; i++ ){ 
+        var st= new Date(data[i].startTime);
+        var et= new Date(data[i].stopTime); 
         let shift: Shift ={ shiftId : data[i].shiftId,
                             operativeId:data[i].operativeId,
-                            startTime: new Date(data[i].startTime),
+                            startTime:new Date(Date.UTC(st.getFullYear(), st.getMonth(), st.getDate(), st.getHours(),st.getMinutes())),
                             createdBy: data[i].createdBy,
                             createdOn: new Date(data[i].createdOn),
                             shiftStatus : data[i].shiftStatus,
@@ -159,7 +159,7 @@ LoadData() {
                             stopLatitude: data[i].stopLatitude,
                             stopLongitude: data[i].stopLongitude,
                             operativeName : data[i].operativeName,
-                            stopTime:   new Date(data[i].stopTime),
+                            stopTime:   new Date(Date.UTC(et.getFullYear(), et.getMonth(), et.getDate(), et.getHours(),et.getMinutes())),
                             overnight : data[i].overnight,
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 

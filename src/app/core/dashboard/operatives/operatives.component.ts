@@ -53,8 +53,7 @@ export class OperativesComponent implements OnInit {
     });
   }
   
-  onSubmitNewOperative() { 
-    debugger
+  onSubmitNewOperative() {  
     if (this.NewOperativeForm.valid) { 
       this.loginService.Register(this._OperativesValue()).subscribe(() => { 
         window.location.reload();

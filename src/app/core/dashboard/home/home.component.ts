@@ -28,8 +28,7 @@ export class HomeComponent implements OnInit {
   } 
   LoadOperative() {  
     this.dashboardService.getOperative(this.UserId).subscribe((data) => {    
-      this.CurrentUser = data; 
-      debugger
+      this.CurrentUser = data;  
       this.Greetings = this.getGreeting(this.CurrentUser.firstName);
       }, (error) => { 
         if(error.status==401){
