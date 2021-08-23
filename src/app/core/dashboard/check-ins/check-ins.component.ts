@@ -75,15 +75,20 @@ export class CheckInsComponent implements OnInit {
     return todate;
   }
   DateFilter(data:any){ 
+    
     this.FilterShifts(data.startTime,data.stopTime);
   }
-  FilterShifts(startTime : Date, EndTime : Date){   
-    let _checkins  =  this.CheckIns.filter(ch=>ch.checkinAt >= startTime && ch.checkinAt <= EndTime); 
+  FilterShifts(startTime : Date, EndTime : Date){    
+    var enddate=this.addDays(EndTime,1);
+    let _checkins  =  this.CheckIns.filter(ch=>ch.checkinAt >= startTime && ch.checkinAt <= enddate); 
+    _checkins.sort((a, b) => (a.checkinAt > b.checkinAt) ? 1 : -1)
+    _checkins.reverse();
     this.dataSource=  new MatTableDataSource(_checkins);  
     this.changeDetectorRefs.detectChanges();
 }
   LoadData() {   
     this.dashboardService.getAllCheckins().subscribe((data) => { 
+      debugger
         for( let i = 0; i < data.length; i++ ){
           var ct=new Date( data[i].checkinDatetime);
           let checkin: CheckIn ={ 

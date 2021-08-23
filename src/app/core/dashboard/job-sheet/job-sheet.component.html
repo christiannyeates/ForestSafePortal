@@ -55,7 +55,7 @@
              <td style="display: inline-block;margin: 1px;">{{shift.tonnage}} </td> 
              <td style="display: inline-block;margin: 1px;">{{shift.jobName}} </td> 
 
-             <td style="display: inline-block;margin: 1px;" (click)="LoadCheckFormPopUp(shift,SafetyCheckFormResult)" *ngIf="shift.SafetyCheckFormResultId==null">Not available </td> 
+             <td style="display: inline-block;margin: 1px;"   *ngIf="shift.SafetyCheckFormResultId==null">Not available </td> 
              <td style="display: inline-block;margin: 1px;"(click)="LoadCheckFormPopUp(shift,SafetyCheckFormResult)" *ngIf="shift.SafetyCheckFormResultId!=null">{{shift.SafetyCheckFormResultId}} </td> 
              <td style="display: inline-block;margin: 1px;" > <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.startLatitude}},{{shift.startLongitude}}">{{shift.startLongitude}}-<br/> {{shift.startLatitude}}</a> </td> 
              <td style="display: inline-block;margin: 1px;"> <a class="a-color" target="_blank" href="https://maps.google.com/?q={{shift.stopLatitude}},{{shift.stopLongitude}}"> {{shift.stopLongitude}}-<br/>{{shift.stopLatitude}}</a> </td> 
@@ -93,8 +93,7 @@
         </div>
         <div class="col-sm-6">
           <label class="form-field-title">Engine Hours : </label>
-          <span *ngIf="_safetyCheckFormResult.engineHours==true"> Pass</span>
-          <span *ngIf="_safetyCheckFormResult.engineHours!=true"> Fail</span>    
+          <span > {{_safetyCheckFormResult.engineHours}}</span>    
         </div>
       </div>
       <br/>

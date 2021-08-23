@@ -187,9 +187,11 @@ export class JobSheetComponent implements OnInit {
     todate.setDate(todate.getDate() + days);
     return todate;
   }
-  FilterShifts(startTime : Date, EndTime : Date){ 
+  FilterShifts(startTime : Date, EndTime : Date){  
+      var enddate=this.addDays(EndTime,1);
       this.operativeShifts=[];
-      let _shifts  =  this.shifts.filter(sh=>sh.createdOn >= startTime && sh.createdOn <= EndTime);
+      let _shifts  =  this.shifts.filter(sh=>sh.createdOn >= startTime && sh.createdOn <= enddate);
+      _shifts.sort((a, b) => (a.createdOn > b.createdOn) ? 1 : -1)
       let unique = [];
       var operativeNames:string[]=[];
       var distinct:number[] = [];
@@ -209,7 +211,8 @@ export class JobSheetComponent implements OnInit {
       this.changeDetectorRefs.detectChanges();
   }
 LoadData() {  
-  this.dashboardService.getAllJobShifts().subscribe((data) => {   
+  this.dashboardService.getAllJobShifts().subscribe((data) => { 
+    debugger  
       for( let i = 0; i < data.length; i++ ){
         let shift: Shift ={ jobShiftId : data[i].jobShiftId,
                             operativeId:data[i].operativeId,
@@ -225,7 +228,7 @@ LoadData() {
                             stopTime: new Date(data[i].stopTime),
                             jobName : data[i].jobName,
                             SafetyCheckFormResultId : data[i].safetyCheckFormResultId,
-                            tonnage : data[i].Tonnage == null?0:data[i].Tonnage,
+                            tonnage : data[i].tonnage == null?0:data[i].tonnage,
                             hours : this.CalculateHours(new Date(data[i].stopTime),new Date(data[i].startTime))
                           } 
               this.shifts.push(shift);         

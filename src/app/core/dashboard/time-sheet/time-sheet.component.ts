@@ -121,10 +121,11 @@ export class TimeSheetComponent implements OnInit {
     todate.setHours(0, 0, 0, 0);
     return todate;
   }
-  FilterShifts(startTime : Date, EndTime : Date){ 
-    
+  FilterShifts(startTime : Date, EndTime : Date){  
+    var enddate=this.addDays(EndTime,1);
       this.operativeShifts=[];
-      let _shifts  =  this.shifts.filter(sh=>sh.createdOn >= startTime && sh.createdOn <= EndTime);
+      let _shifts  =  this.shifts.filter(sh=>sh.createdOn >= startTime && sh.createdOn <= enddate);
+      _shifts.sort((a, b) => (a.createdOn > b.createdOn) ? 1 : -1)
       let unique = [];
       var operativeNames:string[]=[];
       var distinct:number[] = [];
@@ -147,7 +148,7 @@ LoadData() {
   this.dashboardService.getShifts().subscribe((data) => { 
       for( let i = 0; i < data.length; i++ ){ 
         var st= new Date(data[i].startTime);
-        var et= new Date(data[i].stopTime); 
+        var et= new Date(data[i].stopTime);  
         let shift: Shift ={ shiftId : data[i].shiftId,
                             operativeId:data[i].operativeId,
                             startTime:new Date(Date.UTC(st.getFullYear(), st.getMonth(), st.getDate(), st.getHours(),st.getMinutes())),
